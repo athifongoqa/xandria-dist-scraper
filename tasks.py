@@ -1,3 +1,4 @@
+# Entry point for Celery
 from celery import Celery
 from crawler import crawl, add_results_to_queue
 from parserList import get_parser
