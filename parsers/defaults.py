@@ -1,5 +1,7 @@
 import repo
 from collectors import basic
+from headers import random_headers 
+from proxies import random_proxies 
  
 def extract_content(url, soup): 
 	return soup.title.string # extract page's title 
@@ -12,4 +14,4 @@ def allow_url_filter(url):
 	return True # allow all by default
 
 def get_html(url):
-    return basic.get_html(url)
+    return basic.get_html(url, headers=random_headers(), proxies=random_proxies())
