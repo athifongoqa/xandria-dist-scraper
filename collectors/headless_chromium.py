@@ -1,6 +1,5 @@
 from playwright.sync_api import sync_playwright
 
-
 def get_html(url, headers=None, proxy=None, timeout=10000):
     html = ''
     with sync_playwright() as p:
@@ -15,4 +14,4 @@ def get_html(url, headers=None, proxy=None, timeout=10000):
 
         browser.close()
 
-    return 
+    return html
