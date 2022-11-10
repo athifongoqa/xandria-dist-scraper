@@ -16,26 +16,15 @@ RUN apt-get update \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /code
 
 RUN pip install --upgrade pip
 COPY requirements.txt ./requirements.txt
 RUN python3 -m pip install -r requirements.txt
 RUN playwright install --with-deps chromium
 
-COPY ./compose/local/fastapi/entrypoint /entrypoint
-# used to process the line endings of the shell scripts 
-# which converts Windows line endings to UNIX line endings
-RUN sed -i 's/\r$//g' /entrypoint
-RUN chmod +x /entrypoint
+COPY . . 
 
-COPY ./compose/local/fastapi/start /start
-RUN sed -i 's/\r$//g' /start
-RUN chmod +x /start
+EXPOSE 8000
 
-COPY ./compose/local/fastapi/celery/worker/start /start-celeryworker
-RUN sed -i 's/\r$//g' /start-celeryworker
-RUN chmod +x /start-celeryworker
-
-WORKDIR /app
-
-ENTRYPOINT ["/entrypoint"]
+ENTRYPOINT ["uvicorn", "main:app", "--host", "0.0.0.0"]
