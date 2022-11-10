@@ -1,3 +1,10 @@
+FROM mcr.microsoft.com/playwright/python:v1.27.1-focal
+
+# Install Chrome.
+# RUN playwright install --with-deps chromium
+# RUN python3 -m playwright install --with-deps chromium
+RUN apt-get update && playwright install --with-deps chromium
+
 FROM ubuntu:20.04
 
 RUN apt update
@@ -16,12 +23,9 @@ RUN apt-get update \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /code
-
 RUN pip install --upgrade pip
 COPY requirements.txt ./requirements.txt
 RUN python3 -m pip install -r requirements.txt
-RUN playwright install --with-deps chromium
 
 COPY . . 
 
