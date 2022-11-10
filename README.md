@@ -1,24 +1,23 @@
 # Xandria Distributed Scraper
 
 ## Installation
-You will need [Redis](https://redis.io/) and [python3 installed](https://www.python.org/downloads/). After that, install all the necessary libraries by running `pip3 install`.
+
+Install requirements:
 
 ```bash
-pip3 install requests beautifulsoup4 playwright "celery[redis]"
+pip3 install -r requirements.txt
 ```
 
 ## Execute
 
-Configure the Redis connection in the [repo file](./repo.py) and Celery in the [tasks file](./tasks.py).
-
-You need to start Celery... 
+Run:
 
 ```bash
-celery -A tasks worker
+docker compose build
 ```
-
-... and the run the web application.
 
 ```bash
-uvicorn main:app --reload
+docker compose up
 ```
+
+Visit: [http://localhost:8010/](http://localhost:8010/)
