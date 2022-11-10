@@ -1,17 +1,26 @@
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 
-def get_html(url, headers=None, proxy=None, timeout=10000):
+import logging
+
+async def get_html(url, headers=None, proxies=None, timeout=10000):
+    logging.info('Headless Chromium running.')
     html = ''
-    with sync_playwright() as p:
+    async with async_playwright() as p:
+        logging.info(proxies)
+
         browser_type = p.chromium
-        browser = browser_type.launch(proxy=proxy)
-        page = browser.new_page()
-        page.set_extra_http_headers(headers)
-        page.goto(url)
-        page.wait_for_timeout(timeout)
+        browser = await browser_type.launch()
+        print(browser)
+        page = await browser.new_page()
+        # await page.set_extra_http_headers(headers)
+        page.set_default_timeout(0)
+        await page.goto(url)
+        # await page.wait_for_timeout(timeout)
 
-        html = page.content()
+        html = await page.content()
+        if html:
+            logging.info('html received')
+            await browser.close()
+            return html
 
-        browser.close()
-
-    return html
+        return logging.info('Headless Chromium: Problem returning html')

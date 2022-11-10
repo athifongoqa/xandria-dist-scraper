@@ -1,8 +1,7 @@
 import random 
  
 free_proxies = [ 
-	{'http': 'http://62.33.210.34:58918', 'https': 'http://194.233.69.41:443'}, 
-	{'http': 'http://190.64.18.177:80', 'https': 'http://203.193.131.74:3128'}, 
+	{'server': 'https://138.19.29.147:80', 'server': 'http://213.241.205.2:8080'} 
 ] 
  
 proxies = { 

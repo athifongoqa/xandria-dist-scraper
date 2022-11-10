@@ -1,6 +1,12 @@
 from redis import Redis
+from dotenv import load_dotenv
+import os
+import logging
+load_dotenv()
 
-connection = Redis(db=1)
+# connection = Redis(db=1)
+connection = Redis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'),
+                password=os.getenv('REDIS_PASSWORD'), db=os.getenv('REDIS_DB'))
 
 to_visit_key = 'crawling:to_visit'
 visited_key = 'crawling:visited'
@@ -15,11 +21,13 @@ def add_to_visit(value):
         connection.rpush(to_visit_key, value)
 
 def pop_to_visit_blocking(timeout=0):
+    logging.info('Pop to visit blocking.')
     # pop URL from the beginning of the list
     return connection.blpop(to_visit_key, timeout)
 
 # Visited
 def count_visited():
+    logging.info('Count as visited.')
     return connection.scard(visited_key)
 
 def add_visited(value):
@@ -30,6 +38,7 @@ def is_visited(value):
 
 # Queued
 def count_queued():
+    logging.info('Count as queued.')
     return connection.scard(queued_key)
 
 def add_to_queue(value):

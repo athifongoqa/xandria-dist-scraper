@@ -17,8 +17,8 @@ You need to start Celery...
 celery -A tasks worker
 ```
 
-... and the run the main script that will start queueing pages to crawl.
+... and the run the web application.
 
-```python
-python3 main.py 
+```bash
+uvicorn main:app --reload
 ```
