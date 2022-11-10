@@ -2,12 +2,21 @@
 from tasks import queue_url 
 import repo
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 import logging
 
 def create_app() -> FastAPI:
     logging.info('App created.')
 
     app = FastAPI()
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     maximum_items = 30
 
