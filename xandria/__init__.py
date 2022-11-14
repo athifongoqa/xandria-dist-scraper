@@ -25,7 +25,8 @@ def create_app() -> FastAPI:
 
     @app.post("/")
     async def startProcess(req: Request):
-        starting_url = await req.json()['url']
+        processed = await req.json()
+        starting_url = processed['url']
         logging.info(f'start: {starting_url}')
         
         repo.add_to_visit(starting_url)
