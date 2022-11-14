@@ -4,8 +4,8 @@ import repo
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import logging
-# import os
-# os.system("playwright install")
+import os
+os.system("playwright install")
 
 
 def create_app() -> FastAPI:
