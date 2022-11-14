@@ -21,12 +21,6 @@ RUN pip install --upgrade pip
 COPY requirements.txt ./requirements.txt
 RUN python3 -m pip install -r requirements.txt
 
-# Install Chrome.
-# RUN playwright install --with-deps chromium
-# RUN python3 -m playwright install --with-deps chromium
-# RUN apt-get update && playwright install --with-deps chromium
-RUN playwright install-deps
-
 COPY . . 
 
 EXPOSE 8000

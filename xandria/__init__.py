@@ -4,8 +4,9 @@ import repo
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import logging
-import os
-os.system("playwright install")
+# import os
+# os.system("playwright install")
+
 
 def create_app() -> FastAPI:
     logging.info('App created.')
@@ -24,8 +25,7 @@ def create_app() -> FastAPI:
 
     @app.post("/")
     async def startProcess(req: Request):
-        processed = await req.json()
-        starting_url = processed['url']
+        starting_url = await req.json()['url']
         logging.info(f'start: {starting_url}')
         
         repo.add_to_visit(starting_url)

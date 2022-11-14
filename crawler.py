@@ -5,14 +5,13 @@ import logging
 
 async def crawl(url, queued_count, maximum_items, get_html, extract_content):
     if not url:
-        print('URL not provided', url)
-        return
+        logging.info('URL not provided', url)
+        return 'URL not provided'
 
     total = queued_count + repo.count_visited() + repo.count_queued()
     if total >= maximum_items:
-        print('Exiting! queued + visited over maximum:', queued_count, total)
-        return
-    print('gets here')
+        return logging.info('Exiting! queued + visited over maximum:', queued_count, total)
+        
     repo.add_to_queue(url)
 
     content = await _crawl(url, get_html, extract_content)
