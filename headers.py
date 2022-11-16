@@ -44,7 +44,26 @@ headers = [
 	chrome_linux_88, 
 	chromium_linux_92, 
 	firefox_linux_88 
-] 
+]
+
+allowed_headers = [
+            "Access-Control-Allow-Credentials", 
+            "Access-Control-Allow-Origin",
+            "Connection",
+            "Content-Length",
+            "Content-Security-Policy",
+            "Date",
+            "ETag",
+            "Expect-CT",
+            "Keep-Alive",
+            "Referrer-Policy",
+            "Strict-Transport-Security",
+            "X-Content-Type-Options",
+            "X-DNS-Prefetch-Control",
+            "X-Download-Options",
+            "X-Frame-Options",
+            "X-XSS-Protection"
+            ]
  
 def random_headers(): 
 	return random.choice(headers) 

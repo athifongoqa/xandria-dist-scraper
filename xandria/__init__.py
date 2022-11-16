@@ -1,12 +1,15 @@
 # Entry point to start queuing URLs
 from tasks import queue_url 
 import repo
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, status
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+from headers import allowed_headers
 import logging
+import validators
 import os
 os.system("playwright install")
-
 
 def create_app() -> FastAPI:
     logging.info('App created.')
@@ -16,40 +19,37 @@ def create_app() -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=["POST"],
+        allow_headers=allowed_headers,
     )
-
-    maximum_items = 30
+    # app.add_middleware(HTTPSRedirectMiddleware)
 
     @app.post("/")
     async def startProcess(req: Request):
+        # TO-DO: Error handling
         processed = await req.json()
         starting_url = processed['url']
-        logging.info(f'start: {starting_url}')
+
+        if not validators.url(starting_url, public=True):
+            logging.info(f'Not a valid URL: {starting_url}')
+            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content="Bad request.")
+
+        logging.info(f'Starting: {starting_url}')
         
         repo.add_to_visit(starting_url)
 
-        while True:
-            total = repo.count_visited() + repo.count_queued()
-            logging.info(f'Total: {total}')
-            if total >= maximum_items:
-                logging.info(f'Over maximum: {total}')
-                break
-
-            # timeout after 2 seconds
-            item = repo.pop_to_visit_blocking(2)
-            logging.info(f"Item received: {item}")
-            if item is None:
-                logging.info('Timeout! No more items to process')
-                break
-
-            url = item[1].decode('utf-8')
-            logging.info(f"URL received: {url}")
-            print('Pop URL', url)
-            final = await queue_url(url, maximum_items)
-
-        return final
+        try:
+            while True:
+                next = repo.pop_to_visit_blocking(2)
+                logging.info(f"next received: {next}")
+                if next is None:
+                    logging.info('Timeout! No more items to process')
+                    break
+                url = next[1]
+                logging.info(f"URL received: {url}")
+                payload = await queue_url(url)
+                return JSONResponse(status_code=status.HTTP_200_OK, content=payload)
+        except:
+            return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content='Issue processing request. Try again.')
 
     return app

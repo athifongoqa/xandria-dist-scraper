@@ -1,0 +1,62 @@
+swagger: "2.0"
+info:
+  title: xandria
+  description: Accessing the xandria web scraper.
+  version: 1.0.0
+schemes:
+  - https
+paths:
+  "/":
+    post:
+      description: POST URL to be scraped.
+      summary: POST URL to be scraped.
+      operationId: scrapeURL
+      x-google-backend:
+        address: 
+      security:
+      - ApiKeyAuth: []
+      consumes:
+      - application/json
+      parameters:
+        - in: body
+          name: URL
+          description: URL to be scraped.
+          schema:
+            type: object
+            required:
+              - url
+            properties:
+              url:
+                type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+          headers:
+            X-RateLimit-Limit:
+              type: integer
+              description: Request limit per hour.
+            X-RateLimit-Remaining:
+              type: integer
+              description: The number of requests left for the time window.
+            X-RateLimit-Reset:
+              type: string
+              format: date-time
+              description: The UTC date/time at which the current rate limit window resets.
+        400:
+          description: Bad Request.
+        401:
+          description: Unauthorized Access.
+        403:
+          description: Restricted Access.
+        404:
+          description: Not found.
+        500:
+          description: Unexpected error.
+
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-API-Key
+    in: header
