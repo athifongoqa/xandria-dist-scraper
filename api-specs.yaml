@@ -12,7 +12,7 @@ paths:
       summary: POST URL to be scraped.
       operationId: scrapeURL
       x-google-backend:
-        address: 
+        address: https://xandria-scraper-2jytui6ygq-ey.a.run.app
       security:
       - ApiKeyAuth: []
       consumes:
