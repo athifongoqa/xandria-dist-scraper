@@ -28,12 +28,8 @@ def extract_content(url, soup):
 		'description': description,
 		'url': url,
 		'imageURL': imageURL,
-		'protocol': re.search("^(.+?)://", url).group(1),
 		'rootSite': re.search("//(.+?)/", url).group(1),
-		'tags': ['test'],
 		'author': author,
-		'createdAt': createdAt,
-		'updatedAt': updatedAt
 	}
 	
 	logging.info(f'Resource returned: {resource}')
