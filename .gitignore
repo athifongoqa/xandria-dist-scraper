@@ -1,9 +1,4 @@
 /env
 .DS_Store
 .env
-/redis
-/sentinel
-dashboard-adminuser.yaml
-/.terraform
-.terraform.*
-terraform.*
+.gcloudignore
