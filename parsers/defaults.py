@@ -29,7 +29,7 @@ def extract_content(url, soup):
 		'url': url,
 		'imageURL': imageURL,
 		'rootSite': re.search("//(.+?)/", url).group(1),
-		'author': author,
+		'author': author['name'],
 	}
 	
 	logging.info(f'Resource returned: {resource}')
