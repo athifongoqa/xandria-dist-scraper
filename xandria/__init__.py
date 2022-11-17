@@ -12,6 +12,8 @@ import os
 os.system("playwright install")
 
 def create_app() -> FastAPI:
+    logging.basicConfig(level=logging.DEBUG)
+
     logging.info('App created.')
 
     app = FastAPI()
