@@ -1,12 +1,12 @@
 import repo
-import proxies.getProxies
+from proxies.getProxies import getProxies, extract
 import concurrent.futures
 
 def free_proxies():
 	repo.clear_proxies()
-	proxylist = proxies.getProxies.getProxies()
+	proxylist = getProxies()
 
 	with concurrent.futures.ThreadPoolExecutor() as executor:
-		executor.map(proxies.getProxies.extract, proxylist)
+		executor.map(extract, proxylist)
 
 	return True

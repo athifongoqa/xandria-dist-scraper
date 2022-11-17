@@ -18,17 +18,15 @@ def extract_content(url, soup):
 	# meta name=description
 	description = 'Needs updating.'
 	url = data[0]['url']
-	imageURL = data[0]['image']
-	author = data[0]['author']
-	createdAt = data[0]['datePublished']
-	updatedAt = data[0]['dateModified']
+	imageURL = data[0]['image'] or 'NULL'
+	author = data[0]['author'] or 'NULL'
 
 	resource = {
 		'headline': headline,
 		'description': description,
 		'url': url,
 		'imageURL': imageURL,
-		'rootSite': re.search("//(.+?)/", url).group(1),
+		'rootSite': re.search("//(.+?)/", url).group(1) or 'NULL',
 		'author': author['name'],
 	}
 	

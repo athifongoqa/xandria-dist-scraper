@@ -25,11 +25,13 @@ def create_app() -> FastAPI:
         allow_methods=["POST"],
         allow_headers=allowed_headers,
     )
-    # app.add_middleware(HTTPSRedirectMiddleware)
+    
+    app.add_middleware(HTTPSRedirectMiddleware)
 
     @app.get("/proxies")
     async def cronJob():
         free_proxies()
+        return 'Done'
 
     @app.post("/")
     async def startProcess(req: Request):
