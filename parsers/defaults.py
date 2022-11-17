@@ -30,6 +30,7 @@ def extract_content(url, soup):
 		'imageURL': imageURL,
 		'protocol': re.search("^(.+?)://", url).group(1),
 		'rootSite': re.search("//(.+?)/", url).group(1),
+		'tags': ['test'],
 		'author': author,
 		'createdAt': createdAt,
 		'updatedAt': updatedAt

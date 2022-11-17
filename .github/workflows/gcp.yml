@@ -54,5 +54,3 @@ jobs:
 
       - name: Test deployment
         run: curl "${{ steps.deploy-run.outputs.url }}"
-
-        
