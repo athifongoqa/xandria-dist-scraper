@@ -61,8 +61,7 @@
 | 6 | Database Read/Write User | The database user account is used to access the database for read and write access. | - Read and write access to Neo4j and Redis databases |
 | 7 | Frontend Developer | A developer that has access to the frontend code and deployments. | <ul><li> Read and write access to frontend</li><li> Read and write access to deployment</li></ul> |
 | 8 | Backend Administrator | A developer that has ownership of the API and its deployment pipelines. | - Full administrative rights to backend and delivery pipeline |
-| 9 | Backend Developer | A developer that has access to the API, scraper, database connection and deployment pipelines. 
-| <ul><li> Read and write access to backend </li><li> Read and write access to scraper </li><li> Database Read/Write User </li><li> Read and write access to delivery pipeline</li></ul> |
+| 9 | Backend Developer | A developer that has access to the API, scraper, database connection and deployment pipelines. | <ul><li> Read and write access to backend </li><li> Read and write access to scraper </li><li> Database Read/Write User </li><li> Read and write access to delivery pipeline</li></ul> |
 | 10 | API | This is the process in which the web server executes code as and authenticates itself against the database server as. | <ul><li> Read and write access to Neo4j database </li><li> Write access to scraper</li></ul> |
 | 11 | Scraper | This is the process in which the web server passes off a URL to the scraper | - Read and write access to Redis database |
 
@@ -72,8 +71,7 @@
 | --- | --- | --- | --- |
 | 1 | User Login Details | The login credentials that a respective valid user stores in the database | 2, 6 |
 | 2 | User Personal Data | Personal Data (name, email etc) that a respective valid user stores in the database | 2, 6 |
-| 3 | Availability of platform | Xandria should be available 24hrs/day 
-Users should be able to interact with the resources, signup, signout and login | 5, 6, 7, 8, 9 |
+| 3 | Availability of platform | <ul><li>Xandria should be available 24hrs/day </li><li>Users should be able to interact with the resources, signup, signout and login</li></ul> | 5, 6, 7, 8, 9 |
 | 4 | Availability of scraper | Users should be able to bookmark a page 24hrs/day | 8, 9 |
 | 5 | JWT | The token stored in the browser of each logged-in user (as httpOnly cookie) | 2, 10 |
 | 6 | Scraper/API Secret | The secrete/auth mechanism that the API uses to validate a request to the scraper | 9, 10, 11 |
