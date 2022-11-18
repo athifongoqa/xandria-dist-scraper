@@ -138,7 +138,7 @@ KEY: <mark class="highlight-gray_background">**WORK IN PROGRESS**
 - CORS
 - Scraper
     - make sure the scraper can be sidestepped (the extension provides title, URL that is saved in the database if the scraper doesn’t respond)
-    - <mark class="highlight-gray_background">**TODO: prevent scraper from scraping URLs from blocklists**
+    <ul id="6a8face6-1135-4777-a0fe-d320aa65f0f0" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-gray_background"><strong><span style="border-bottom:0.05em solid">TODO: prevent scraper from scraping URLs from blocklists</span></strong></mark></li></ul>
 - VPC:
     - Only route requests to private IPs (such as the scraper) through the VPC connector
 - Express helmet middleware (setting security headers)
