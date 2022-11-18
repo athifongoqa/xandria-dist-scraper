@@ -41,21 +41,10 @@ def store_content(url, content):
 	repo.set_content(url, content)
  
 def allow_url_filter(url): 
-	# allow all by default
-	# validate URLs/Robots.txt
 	# TO-DO: Error handling
-	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0'}
-
-	r = requests.get('https://webris.org/robots.txt', 
-	headers=headers, 
-	proxies={
-		'http' : '200.105.215.22:33630',
-		'https': '200.105.215.22:33630'
-		})
-
-	x = re.findall("[A-Za-z0-9]+-[a-zA-Z]+: \*", r.text)
-	if x: 
-		return True
+	robotstxt(url)
+	safe_chars(url)
+	
 
 async def get_html(url):
 	proxies = await random_proxies()
@@ -63,7 +52,18 @@ async def get_html(url):
 	# TO-DO: Error handling
 	return await headless_chromium.get_html(url, headers=random_headers(), proxies=proxies)
 
-def use_regex(input_text):
+def safe_chars(url):
     pattern = re.compile(r"[A-Za-z0-9]+-\._~:/\?#.*@!\$&'.*\*\+.*=", re.IGNORECASE)
-    return pattern.match(input_text)
+    return pattern.match(url)
+
+async def robotstxt(url):
+	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0'}
+
+	r = requests.get('https://webris.org/robots.txt', 
+	headers=headers, 
+	proxies=await random_proxies())
+
+	x = re.findall("[A-Za-z0-9]+-[a-zA-Z]+: \*", r.text)
+	if x: 
+		return True
 
