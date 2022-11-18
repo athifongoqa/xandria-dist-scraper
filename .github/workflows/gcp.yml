@@ -2,7 +2,7 @@
 name: Build, Push and Deploy Scraper Image w/ Google Cloud Platform
 on:
   push:
-    branches: [deploy]
+    branches: [main]
 
 jobs:
   build-push-gcr:
