@@ -139,15 +139,14 @@ DREAD (Meier et al., 2003):
 | Websites block Scraper | M | - rotating proxies | D |
 | Information Disclosure | M | - access resources with GraphQL query, that the user is not authorized to access → elaborate auth schema | I |
 | Deploying insecure Code | M | - having security check in the Pipeline → DevSecOps | I |
-| Elevation of Privilege | M | - run with least privilege
-- role-based auth | E |
+| Elevation of Privilege | M | <ul><li> run with least privilege </li><li> role-based auth </li></ul>| E |
 | Tampering with Queries | M | <ul><li> make sure Schema Introspection is disabled</li><li>limit query complexity</li></ul> | T |
 | Repudiation | M | <ul><li>detailed and differentiated logging</li><li> timestamps </li><li> digital signatures? </li><li> audit trails </li></ul> | R |
 | Dirty links (from frontend/extension to the backend/scraper) → into DB | M | <ul><li>sanitize resource links, descriptions etc.</li><li> block URLs from known malicious sources (Blocklist)</li></ul> | T |
 | Scrape protected pages | M | - ensure no private data is scraped by disabling the extension | I |
 | Hackers could write their own website with embedded malicious code and let it be scraped | M | <ul><li> sanitize scraped content (Scraper)</li><li>sanitize anything that is written into the database (Server)</li></ul> | E |
 | External access to DB | M | <ul><li> Firewall </li><li>Accessing DB via SSH</li><li> VPC </li><li> Protecting Auth Data with ENV Variables </li></ul> | T |
-| Server availability | M | <ul><li> Scaling</li><li> Rollbacks</li><li> Load balancing | D |
+| Server availability | M | <ul><li> Scaling</li><li> Rollbacks</li><li> Load balancing </li></ul>| D |
 | Database availability | M | <ul><li>Replication</li><li> Sharding </li><li> Scaling </li><li> Backups </li><li> Rollbacks </li></ul> | D |
 | Scraper Availability | M | <ul><li> Scaling </li><li> Rollbacks </li><li> Load balancing </li></ul>| D |
 | Error Message discloses information | M | <ul><li> make sure that malicious actors cannot access any information about internal resources via Error Messages or Logs </li><li> write custom error messages </li></ul>| I |
