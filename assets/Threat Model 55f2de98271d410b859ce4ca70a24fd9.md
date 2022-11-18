@@ -141,38 +141,20 @@ DREAD (Meier et al., 2003):
 | Deploying insecure Code | M | - having security check in the Pipeline → DevSecOps | I |
 | Elevation of Privilege | M | - run with least privilege
 - role-based auth | E |
-| Tampering with Queries | M | - make sure Schema Introspection is disabled
-- limit query complexity | T |
+| Tampering with Queries | M | <ul><li> make sure Schema Introspection is disabled</li><li>limit query complexity</li></ul> | T |
 | Repudiation | M | <ul><li>detailed and differentiated logging</li><li> timestamps </li><li> digital signatures? </li><li> audit trails </li></ul> | R |
-| Dirty links (from frontend/extension to the backend/scraper) → into DB | M | - sanitize resource links, descriptions…
-- block URLs from known malicious sources (Blocklist) | T |
+| Dirty links (from frontend/extension to the backend/scraper) → into DB | M | <ul><li>sanitize resource links, descriptions etc.</li><li> block URLs from known malicious sources (Blocklist)</li></ul> | T |
 | Scrape protected pages | M | - ensure no private data is scraped by disabling the extension | I |
-| Hackers could write their own website with embedded malicious code and let it be scraped | M | - sanitize scraped content (Scraper)
-- sanitize anything that is written into the database (Server) | E |
-| External access to DB | M | - Firewall
-- Accessing DB via SSH
-- VPC
-- Protecting Auth Data with ENV Variables | T |
-| Server availability | M | - Scaling
-- Rollbacks
-- Load balancing | D |
-| Database availability | M | - Replication
-- Sharding
-- Scaling
-- Backups
-- Rollbacks | D |
-| Scraper Availability | M | - Scaling
-- Rollbacks
-- Load balancing | D |
-| Error Message discloses information | M | - make sure that malicious actors cannot access any information about internal resources via Error Messages or Logs
-- write custom error messages | I |
-| Spam by making accounts | M | - rate limit
-- verify email | S |
+| Hackers could write their own website with embedded malicious code and let it be scraped | M | <ul><li> sanitize scraped content (Scraper)</li><li>sanitize anything that is written into the database (Server)</li></ul> | E |
+| External access to DB | M | <ul><li> Firewall </li><li>Accessing DB via SSH</li><li> VPC </li><li> Protecting Auth Data with ENV Variables </li></ul> | T |
+| Server availability | M | <ul><li> Scaling</li><li> Rollbacks</li><li> Load balancing | D |
+| Database availability | M | <ul><li>Replication</li><li> Sharding </li><li> Scaling </li><li> Backups </li><li> Rollbacks </li></ul> | D |
+| Scraper Availability | M | <ul><li> Scaling </li><li> Rollbacks </li><li> Load balancing </li></ul>| D |
+| Error Message discloses information | M | <ul><li> make sure that malicious actors cannot access any information about internal resources via Error Messages or Logs </li><li> write custom error messages </li></ul>| I |
+| Spam by making accounts | M | - rate limit verify email | S |
 | Unauthenticated read of resources | A | - auth flow |  |
-| Server-Side Request Forgery | M | - Firewall policy or network access control rules to block all but essential intranet traffic
-- Sanitize and validate input data |  |
-| Cross-Site Request Forgery | M | - deploy frontend and backend on the same domain
-    → set cookie sameSite-property to “lax” |  |
+| Server-Side Request Forgery | M | <ul><li> Firewall policy or network access control rules to block all but essential intranet traffic </li><li> Sanitize and validate input data </li></ul>|  |
+| Cross-Site Request Forgery | M | <ul><li> deploy frontend and backend on the same domain</li><li> → set cookie sameSite-property to “lax” </li></ul>|  |
 
 ## Currently Implemented Security Measures
 
