@@ -134,8 +134,8 @@ DREAD (Meier et al., 2003):
 
 | Threat | Assessment | Potential Mitigation | STRIDE Code |
 | --- | --- | --- | --- |
-| DDoS Scraper → Unauthenticated access to Scraper | M | - frontend sends URL and title to the backend, If scraper is down, the bookmark is still saved with the title + logging the URL to scrape it as soon as the scaper is up again
-- a shared secret between Backend and Scraper | D |
+| DDoS Scraper → Unauthenticated access to Scraper | M | <ul><li> frontend sends URL and title to the backend, If scraper is down, the bookmark is still saved with the title + logging the URL to scrape it as soon as the scaper is up again</li>
+<li>a shared secret between Backend and Scraper</li></ul> | D |
 | DoS API interface | M | - throttling | D |
 | Websites block Scraper | M | - rotating proxies | D |
 | Information Disclosure | M | - access resources with GraphQL query, that the user is not authorized to access → elaborate auth schema | I |
