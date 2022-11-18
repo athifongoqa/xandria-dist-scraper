@@ -128,23 +128,24 @@ DREAD (Meier et al., 2003):
 ## Currently Implemented Security Measures
 
 **Server**
+KEY: <mark class="highlight-gray_background">**WORK IN PROGRESS**
 
 - TLS/SSL → HTTP-Request Encryption
 - JWT in httpOnly Cookies
     - JWT generation with secret only known to the server
     - cannot be accessed via the client, only send with each request
-    - **TODO: Deploy frontend and backend on the same domain, to set sameSite-property to avoid CSRF-Attacks**
+    - <mark class="highlight-gray_background">**TODO: Deploy frontend and backend on the same domain, to set sameSite-property to avoid CSRF-Attacks**
 - CORS
 - Scraper
     - make sure the scraper can be sidestepped (the extension provides title, URL that is saved in the database if the scraper doesn’t respond)
-    - **TODO: prevent scraper from scraping URLs from blocklists**
+    - <mark class="highlight-gray_background">**TODO: prevent scraper from scraping URLs from blocklists**
 - VPC:
     - Only route requests to private IPs (such as the scraper) through the VPC connector
 - Express helmet middleware (setting security headers)
 - Authentication → If JWT doesn’t hold the ID of valid User context creation for GraphQL will fail
     - separate Auth REST Endpoint to avoid GraphQL insecurities
     - if no JWT for GraphQL-endpoint is provided, context creation will fail and no query executed
-- **TODO: Disable Introspection/schema autogeneration** (currently enabled for development reasons)
+- <mark class="highlight-gray_background">**TODO: Disable Introspection/schema autogeneration** (currently enabled for development reasons)
 - Resolver-based access control
     - Mutations can only be executed with `{isAuthenticated: true}` and a valid current user
     - For updating data: Input to resolvers is only the data to be changed, never the UserID (that will always be the current user)
@@ -155,12 +156,12 @@ DREAD (Meier et al., 2003):
     - Password needs to be at least 10 characters and at least have one lower and upper case characters + number + special character
 - Input validation and Sanitation for REST- and GraphQL-Endpoints
     - Limit Query Complexity → We have circular relationships that can be exploited
-    - **TODO: More thorough validation/sanitation for GraphQL-Endpoint**
-    - **TODO: Rate limit GraphQL-queries**
+    - <mark class="highlight-gray_background">**TODO: More thorough validation/sanitation for GraphQL-Endpoint**
+    - <mark class="highlight-gray_background">**TODO: Rate limit GraphQL-queries**
 - Custom Error Messages, to avoid enclosing any internal information
-- **Container Image Security:**
+- <mark class="highlight-gray_background">**Container Image Security:**</mark>
     - Integrating security checks into our delivery pipeline on Github Actions
-- **TODO: Binary Authorisation**
+- <mark class="highlight-gray_background">**TODO: Binary Authorisation**</mark>
     - Securing against supply chain attacks in deploying docker images on Cloud Run which are hosted in Artifact Registry in our network
 - Logging
     - GCP Logs Explorer
@@ -169,7 +170,7 @@ DREAD (Meier et al., 2003):
 
 **Scraper**
 
-KEY: **>WORK IN PROGRESS**
+KEY: <mark class="highlight-gray_background">**WORK IN PROGRESS**
 
 - TLS/SSL enabled on the Cloud Run endpoint
 - CORS
@@ -181,16 +182,16 @@ KEY: **>WORK IN PROGRESS**
 - Task management queue
     - To protect against overwhelming the server’s/container’s resources, Celery is used to handle scraping jobs separately.
 - Headless browsers
-    - **>Sandboxed launches to prevent SSRF are still needed.**
+    - <mark class="highlight-gray_background">**Sandboxed launches to prevent SSRF are still needed.**
 - Input URL validation
     - Validating whether the URL is valid/exists and a public IP address
     - Robots.txt: checking whether the User-Agent is set to * (all) & the if the disallow path != URL given (or is root)
     - XSS in URL is currently mitigated by whitelisting safe characters.
-    - **>Creating an internal blocklist**
-    - **>Integrating Google’s Web Risk API**
-- **>Container Image Security:**
+    - <mark class="highlight-gray_background">**Creating an internal blocklist**
+    - <mark class="highlight-gray_background">**Integrating Google’s Web Risk API**
+- <mark class="highlight-gray_background">**Container Image Security:**
     - Integrating security checks into our delivery pipeline on GitHub Actions
-- **>Binary Authorisation:**
+- <mark class="highlight-gray_background">**Binary Authorisation:**
     - Securing against supply chain attacks in deploying docker images on Cloud Run which are hosted in Artifact Registry in our network
 - Request security headers:
     
