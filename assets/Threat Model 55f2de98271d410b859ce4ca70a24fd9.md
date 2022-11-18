@@ -53,39 +53,26 @@
 
 | ID | Name | Description | Access Rights |
 | --- | --- | --- | --- |
-| 1 | Anonymous Web User | A user who has connected to the platform but has not provided valid credentials. | - Access HTTPS Port
-- Login with valid credentials
-- Sign up a new user
-- (Future) Access the platform to search + read public resources |
+| 1 | Anonymous Web User | A user who has connected to the platform but has not provided valid credentials. | <ul><li> Access HTTPS Port </li><li> Login with valid credentials </li><li> Sign up a new user </li><li> (Future) Access the platform to search + read public resources</li></ul> |
 
-| 2 | Valid User | A user who has logged in with valid credentials and thus sends a valid JWT with each request. | - All that (1) can do 
-- Access browser extension
-- Add new bookmarks/resources via browser extension
-- Add notes and comments to resources
-- Update their own profile data (username, name, email, password) |
+| 2 | Valid User | A user who has logged in with valid credentials and thus sends a valid JWT with each request. | <ul><li> All that (1) can do </li><li> Access browser extension </li><li> Add new bookmarks/resources via browser extension </li><li> Add notes and comments to resources </li><li> Update their own profile data (username, name, email, password)</li></ul> |
 
 | 3 | Invalid User | A user who has attempted to log in with invalid credentials. | - All that (1) can do |
 
-| 4 | Browser Extension | Application running in a logged-in user’s browser. | - If it has valid JWT → (2)
-- If it has no credentials → (1) |
+| 4 | Browser Extension | Application running in a logged-in user’s browser. | <ul><li> If it has valid JWT → (2) </li><li> If it has no credentials → (1)</li></ul> |
 
 | 5 | Database Server Administrator | The DB server administrator has read and write access to the DB used by Xandria. | - Full administrative rights to databases |
 
 | 6 | Database Read/Write User | The database user account is used to access the database for read and write access. | - Read and write access to Neo4j and Redis databases |
 
-| 7 | Frontend Developer | A developer that has access to the frontend code and deployments. | - Read and write access to frontend
-- Read and write access to deployment |
+| 7 | Frontend Developer | A developer that has access to the frontend code and deployments. | <ul><li> Read and write access to frontend</li><li> Read and write access to deployment</li></ul> |
 
 | 8 | Backend Administrator | A developer that has ownership of the API and its deployment pipelines. | - Full administrative rights to backend and delivery pipeline |
 
 | 9 | Backend Developer | A developer that has access to the API, scraper, database connection and deployment pipelines. 
-| - Read and write access to backend 
-- Read and write access to scraper
-- Database Read/Write User
-- Read and write access to delivery pipeline |
+| <ul><li> Read and write access to backend </li><li> Read and write access to scraper </li><li> Database Read/Write User </li><li> Read and write access to delivery pipeline</li></ul> |
 
-| 10 | API | This is the process in which the web server executes code as and authenticates itself against the database server as. | - Read and write access to Neo4j database
-- Write access to scraper |
+| 10 | API | This is the process in which the web server executes code as and authenticates itself against the database server as. | <ul><li> Read and write access to Neo4j database </li><li> Write access to scraper</li></ul> |
 
 | 11 | Scraper | This is the process in which the web server passes off a URL to the scraper | - Read and write access to Redis database |
 
@@ -100,11 +87,7 @@ Users should be able to interact with the resources, signup, signout and login |
 | 4 | Availability of scraper | Users should be able to bookmark a page 24hrs/day | 8, 9 |
 | 5 | JWT | The token stored in the browser of each logged-in user (as httpOnly cookie) | 2, 10 |
 | 6 | Scraper/API Secret | The secrete/auth mechanism that the API uses to validate a request to the scraper | 9, 10, 11 |
-| 7 | Resources | All resources stored in the DB | - (2) All authenticated users should be able to read public resources
-- (11) Scraper should be the only one determining what the information about the resource is
-- (1, 2, 3) User shouldn’t be able to update/change information about the resource
-- (1, 2, 3) User shouldn’t be able to delete information about the resource
-- (5, 6, 9, 10) CRUD operations |
+| 7 | Resources | All resources stored in the DB | <ul><li> (2) All authenticated users should be able to read public resources </li><li> (11) Scraper should be the only one determining what the information about the resource is </li><li> (1, 2, 3) User shouldn’t be able to update/change information about the resource </li><li>(1, 2, 3) User shouldn’t be able to delete information about the resource </li><li> (5, 6, 9, 10) CRUD operations</li></ul> |
 | 8 | API Keys/Secrets | Keys and secrets used in the API  | - 8, 9, 10 |
 | 9 | Scraper Keys/Secrets | Keys and secrets used in the Scraper  | - 8, 9, 10, 11 |
 | 10 | Deployment Keys/Secrets | Keys and secrets used in the delivery pipeline  | - 8 |
