@@ -1,5 +1,9 @@
 # Xandria Distributed Scraper
 
+The system covered in this repositry is with regards to the scraper component of Xandria.
+
+![alt text](assets/XandriaDataFlow.png)
+
 ## Installation
 
 Install requirements:
@@ -13,8 +17,12 @@ pip3 install -r requirements.txt
 Run:
 
 ```bash
+celery -A tasks worker
+```
+
+```bash
 uvicorn main:app --reload
 ```
 
 
-Visit: [http://localhost:8010/](http://localhost:8010/)
+Visit: [http://localhost:8010/](http://localhost:8000/)
