@@ -1,71 +1,232 @@
-</style></head><body><article id="55f2de98-271d-410b-859c-e4ca70a24fd9" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🗿</span></div><h1 class="page-title">Threat Model</h1></header><div class="page-body"><p id="39620480-abd0-4e17-9fba-064e3d5bcc4e" class="">
+# 🐉 Threat Model
+### Information
 
-</p><nav id="11bff80d-14aa-4f4a-9cd0-ff035e36e95b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#19be24fb-19b1-48cf-b381-f5cd5b9fc258">Information</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c5797d46-80cc-40c0-991e-72e1cd8ad18c">External Dependencies</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5fef390b-22e5-4d37-be1f-aa12dbbe2e47">Entry Points</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1ebbcab0-5eac-465a-8f8d-f0211086b909">Exit Points</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#548e614c-75a8-4ec0-84f5-ceaf13e99078">Trust Levels</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#540185da-9a78-4f95-95e5-e93b1ed6cfc6">Assets</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cfbcdc03-5c26-4604-ae88-7d972caeb018">Threats and their Mitigations</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#355895c0-7b0c-4335-b138-9c1f528483f7">Currently Implemented Security Measures</a></div></nav><h3 id="19be24fb-19b1-48cf-b381-f5cd5b9fc258" class="">Information</h3><ol type="1" id="2cec575c-ba8f-4681-8430-b13edc6522ec" class="numbered-list" start="1"><li>Application Name: Xandria</li></ol><ol type="1" id="64ec08a9-d165-44f8-a379-a0b9075051ad" class="numbered-list" start="2"><li>Application Version: 1.0 (Development)</li></ol><ol type="1" id="e450722d-c979-4500-862a-883a02d272d6" class="numbered-list" start="3"><li>Description: Collaborative search engine and bookmarking tool running on a graph database using GraphQL. Users can use a browser extension to bookmark websites that will be imported to the platform (via the Scraper) and discoverable for all other users. Each user can make public comments and private notes on resources and bookmark them, to save for later</li></ol><ol type="1" id="2f62a618-95b5-4653-8890-9ba767810006" class="numbered-list" start="4"><li>Document Owner: Sonja Sönnichsen &amp; Athi Fongoqa</li></ol><ol type="1" id="2069250c-5e23-4247-b001-249e0d554edf" class="numbered-list" start="5"><li>Participants: Sonja Sönnichsen, Athi Fongoqa &amp; Joshua Knauber</li></ol><ol type="1" id="791cefdc-d74e-4ab9-b8b7-d33229939d68" class="numbered-list" start="6"><li>Reviewer: Peter Ruppel</li></ol><p id="15efc7a2-355d-47c7-b213-af2cdeabf969" class="">
-</p><h3 id="c5797d46-80cc-40c0-991e-72e1cd8ad18c" class="">External Dependencies</h3><ol type="1" id="d4688a66-f0d2-407f-90c6-e6b8d203bb13" class="numbered-list" start="1"><li>Apollo: The backend runs on Apollo Server, and the frontend uses Apollo Client to interact with the Backend</li></ol><ol type="1" id="505a62f6-72b9-4b84-930b-f3ea29bb52ed" class="numbered-list" start="2"><li>GraphQL: Query language for the database</li></ol><ol type="1" id="708a320d-47b1-45e7-9aca-695dac80961e" class="numbered-list" start="3"><li>Neo4j: Graph database</li></ol><ol type="1" id="3a59e742-adb6-4ac4-a19d-402dc9f2352b" class="numbered-list" start="4"><li>Express: REST Endpoints for Auth + Middleware for cookie handling</li></ol><ol type="1" id="8bee8a8a-b13a-4492-9267-75e9454688e7" class="numbered-list" start="5"><li>GCP Cloud Run: Serverless deployment</li></ol><ol type="1" id="e7969cfe-93df-4722-8fd4-1e65a5b682f6" class="numbered-list" start="6"><li>GitHub Actions: CI/CD</li></ol><ol type="1" id="58897a97-ffdd-4051-b7a9-86130e9d3a95" class="numbered-list" start="7"><li>FastAPI: Backend will request resource details [via URL sent] from main/only endpoint</li></ol><ol type="1" id="67febce9-bb07-4daf-9f48-147db74e3e57" class="numbered-list" start="8"><li>Redis: URL’s queued in caches</li></ol><ol type="1" id="18cf2bab-630c-4607-a74c-7957474410e6" class="numbered-list" start="9"><li>Celery: scraping task queue management</li></ol><p id="5a45c0dd-1cbf-4787-813e-9dc6e235b5ba" class="">
-</p><h3 id="5fef390b-22e5-4d37-be1f-aa12dbbe2e47" class="">Entry Points</h3><table id="e74b804a-0cb6-4ba7-bee1-05fdd2eadac2" class="simple-table"><tbody><tr id="5f83cdb8-4c65-451d-b327-f2fbd032b9d1"><td id="?@Mp" class="">ID</td><td id="{OB\" class="">Name</td><td id="ZIFU" class="" style="width:563px">Description</td></tr><tr id="c12440e2-c035-4afd-b8e3-a30b64aa46ea"><td id="?@Mp" class="">1</td><td id="{OB\" class="">HTTPS Port</td><td id="ZIFU" class="" style="width:563px">Main Access point for Frontend to connect with the backend</td></tr><tr id="deab02bc-efaf-4505-8cf7-cc34362e9b90"><td id="?@Mp" class="">1.1</td><td id="{OB\" class="">/graphql</td><td id="ZIFU" class="" style="width:563px">Access point for GraphQL Post-Request</td></tr><tr id="33044efc-a782-4769-bf10-72854f540ab3"><td id="?@Mp" class="">1.2</td><td id="{OB\" class="">/login</td><td id="ZIFU" class="" style="width:563px">REST Endpoints for Auth</td></tr><tr id="8060114d-8c72-4f35-be12-f8c3b163625d"><td id="?@Mp" class="">1.3</td><td id="{OB\" class="">/signup</td><td id="ZIFU" class="" style="width:563px">REST Endpoints for Auth</td></tr><tr id="278e7c1d-9054-4ebb-9abc-bc9dcb26f746"><td id="?@Mp" class="">1.4</td><td id="{OB\" class="">/refresh</td><td id="ZIFU" class="" style="width:563px">REST Endpoints for Auth</td></tr><tr id="bbadf2f1-9931-4f96-860a-20165b1625fe"><td id="?@Mp" class="">1.5</td><td id="{OB\" class="">/signout</td><td id="ZIFU" class="" style="width:563px">REST Endpoints for Auth</td></tr><tr id="365f4fb2-f904-40fa-a2a9-50964c7f648c"><td id="?@Mp" class="">2</td><td id="{OB\" class="">HTTPS Port</td><td id="ZIFU" class="" style="width:563px">Request access point (API → Scraper)</td></tr><tr id="9938c997-82dd-419f-a02c-90b9d42f96f8"><td id="?@Mp" class="">2.1</td><td id="{OB\" class="">/</td><td id="ZIFU" class="" style="width:563px">Resource URL passed </td></tr><tr id="adcf4e36-5bb5-4de8-ba5b-c81a27e93868"><td id="?@Mp" class="">2.2</td><td id="{OB\" class="">HTML</td><td id="ZIFU" class="" style="width:563px">HTML parsed by scraper</td></tr><tr id="983a57b1-1681-4651-88e0-f2a9b47a06ef"><td id="?@Mp" class="">3</td><td id="{OB\" class="">Browser Extension</td><td id="ZIFU" class="" style="width:563px">Application that sends request to the scraper, through the API</td></tr></tbody></table><h3 id="1ebbcab0-5eac-465a-8f8d-f0211086b909" class="">Exit Points</h3><ul id="e5f8d61b-cb59-4580-9d31-b4f89665115a" class="bulleted-list"><li style="list-style-type:disc">Response and Error Messages</li></ul><ul id="87036ec4-c595-49fd-8774-44a791d9a983" class="bulleted-list"><li style="list-style-type:disc">Extracting page content</li></ul><ul id="37df7367-c4db-4a8c-92c3-98a4da223667" class="bulleted-list"><li style="list-style-type:disc">Logging, Monitoring?</li></ul><table id="4ac5ec41-0aca-4652-a29f-8f9c2b691775" class="simple-table"><tbody><tr id="a9a02a7a-9018-4e03-a10f-133854b33e99"><td id="A@[U" class="">ID</td><td id="@L?k" class="">Name</td><td id="DbOX" class="" style="width:508px">Description</td><td id="qKO[" class="">Trust Levels</td></tr><tr id="aff1c7ca-f7ae-4d9c-80ce-b3279cd3c287"><td id="A@[U" class="">1</td><td id="@L?k" class="">Responses</td><td id="DbOX" class="" style="width:508px">Responses by Server and Scraper</td><td id="qKO[" class="">2, 7, 8, 9</td></tr><tr id="cdee500b-3dd8-41d6-a336-29e79a052894"><td id="A@[U" class="">2</td><td id="@L?k" class="">Error messages</td><td id="DbOX" class="" style="width:508px">Thrown by Server, Scraper, Database</td><td id="qKO[" class="">2, 7, 8, 9</td></tr><tr id="f10fa5cc-457f-41a6-a07a-9576f1602bc2"><td id="A@[U" class="">3</td><td id="@L?k" class="">Logging</td><td id="DbOX" class="" style="width:508px">Write to <code>error.log </code></td><td id="qKO[" class="">5, 6, 8, 9</td></tr><tr id="85414c00-1697-4edd-8b6b-8df79ae0ef3a"><td id="A@[U" class="">4</td><td id="@L?k" class="">Monitoring</td><td id="DbOX" class="" style="width:508px">On Google Cloud Dashboard</td><td id="qKO[" class="">5, 6, 8, 9</td></tr></tbody></table><h3 id="548e614c-75a8-4ec0-84f5-ceaf13e99078" class="">Trust Levels</h3><p id="39f60ef0-5df5-43f6-a23c-3822da18c12e" class="">
-</p><table id="e675f019-bece-484c-bd56-0b8b02cdc63b" class="simple-table"><tbody><tr id="62a5a2f1-5f60-449a-a56d-e09636ab73dc"><td id="EBFJ" class="">ID</td><td id="DnY;" class="">Name</td><td id="WUfH" class="" style="width:877px">Description</td><td id="D&lt;dl" class="" style="width:444px">Access Rights</td></tr><tr id="3c314ffa-14a8-4f93-84e5-6becacee3c0e"><td id="EBFJ" class="">1</td><td id="DnY;" class="">Anonymous Web User</td><td id="WUfH" class="" style="width:877px">A user who has connected to the platform but has not provided valid credentials.</td><td id="D&lt;dl" class="" style="width:444px">- Access HTTPS Port
-- Login with valid credentials
-- Sign up a new user
-- (Future) Access the platform to search + read public resources</td></tr><tr id="367acc5a-fa1d-48ad-9f49-9b083a2e8aa4"><td id="EBFJ" class="">2</td><td id="DnY;" class="">Valid User</td><td id="WUfH" class="" style="width:877px">A user who has logged in with valid credentials and thus sends a valid JWT with each request.</td><td id="D&lt;dl" class="" style="width:444px">- All that (1) can do 
-- Access browser extension
-- Add new bookmarks/resources via browser extension
-- Add notes and comments to resources
-- Update their own profile data (username, name, email, password)</td></tr><tr id="26b98786-4356-47ac-960b-51b835daea6b"><td id="EBFJ" class="">3</td><td id="DnY;" class="">Invalid User</td><td id="WUfH" class="" style="width:877px">A user who has attempted to log in with invalid credentials.</td><td id="D&lt;dl" class="" style="width:444px">- All that <strong>(1)</strong> can do</td></tr><tr id="ff62cdcc-d565-431b-9c91-1ee645c2d03e"><td id="EBFJ" class="">4</td><td id="DnY;" class="">Browser Extension</td><td id="WUfH" class="" style="width:877px">Application running in a logged-in user’s browser.</td><td id="D&lt;dl" class="" style="width:444px">- If it has valid JWT → <strong>(2)</strong>
-- If it has no credentials → <strong>(1)</strong></td></tr><tr id="97f2275d-c46c-4ab6-af2d-744b908ceb2e"><td id="EBFJ" class="">5</td><td id="DnY;" class="">Database Server Administrator</td><td id="WUfH" class="" style="width:877px">The DB server administrator has read and write access to the DB used by Xandria.</td><td id="D&lt;dl" class="" style="width:444px">- Full administrative rights to database</td></tr><tr id="21c1c324-7b42-4b34-bf34-52e6da6c09b7"><td id="EBFJ" class="">6</td><td id="DnY;" class="">Database Read/Write User</td><td id="WUfH" class="" style="width:877px">The database user account is used to access the database for read and write access.</td><td id="D&lt;dl" class="" style="width:444px">- Read and write access to database</td></tr><tr id="58abef36-99b8-4de5-bb79-87cfd0b411e5"><td id="EBFJ" class="">7</td><td id="DnY;" class="">Frontend Developer</td><td id="WUfH" class="" style="width:877px">A developer that has access to the frontend code and deployments.</td><td id="D&lt;dl" class="" style="width:444px">- Read and write access to frontend
-- Read and write access to deployment</td></tr><tr id="7bf0eff8-6bd8-4cda-b645-88ec4045e832"><td id="EBFJ" class="">8</td><td id="DnY;" class="">Backend Administrator</td><td id="WUfH" class="" style="width:877px">A developer that has ownership of the API and its deployment pipelines.</td><td id="D&lt;dl" class="" style="width:444px">- Full administrative rights to backend and delivery pipeline</td></tr><tr id="75445a81-ce60-4b67-bc50-915384d72363"><td id="EBFJ" class="">9</td><td id="DnY;" class="">Backend Developer</td><td id="WUfH" class="" style="width:877px">A developer that has access to the API, scraper, database connection and deployment pipelines.</td><td id="D&lt;dl" class="" style="width:444px">- Read and write access to backend
-- Read and write access to scraper
-- Database Read/Write User
-- Read and write access to delivery pipeline</td></tr><tr id="e449fe55-dc5f-4cc5-95c7-a5b22aa1f6ed"><td id="EBFJ" class="">10</td><td id="DnY;" class="">API</td><td id="WUfH" class="" style="width:877px">This is the process in which the web server executes code as and authenticates itself against the database server as.</td><td id="D&lt;dl" class="" style="width:444px">- Read and write access to database
-- Write access to scraper</td></tr><tr id="005475a7-366d-49b5-a68d-5d3279059de1"><td id="EBFJ" class="">11</td><td id="DnY;" class="">Scraper</td><td id="WUfH" class="" style="width:877px"></td><td id="D&lt;dl" class="" style="width:444px"></td></tr></tbody></table><h3 id="540185da-9a78-4f95-95e5-e93b1ed6cfc6" class="">Assets</h3><table id="825b27dd-ae05-4e65-963f-ddf4c08070bf" class="simple-table"><tbody><tr id="8a39f669-1d76-4156-99ad-fac49cc61c11"><td id=":Ob]" class="">ID</td><td id="cYo&lt;" class="" style="width:213px">Name</td><td id="lz~D" class="" style="width:677px">Description</td><td id="`e:@" class="" style="width:647px">Trust Level</td></tr><tr id="4dc5d794-0ba4-4335-baa4-666bcdbcb9b0"><td id=":Ob]" class="">1</td><td id="cYo&lt;" class="" style="width:213px">User Login Details</td><td id="lz~D" class="" style="width:677px">The login credentials that a respective valid user stores in the database</td><td id="`e:@" class="" style="width:647px">2, 6</td></tr><tr id="f01946dc-6d0f-4c66-879e-b176bcca6e75"><td id=":Ob]" class="">2</td><td id="cYo&lt;" class="" style="width:213px">User Personal Data</td><td id="lz~D" class="" style="width:677px">Personal Data (name, email etc) that a respective valid user stores in the database</td><td id="`e:@" class="" style="width:647px">2, 6</td></tr><tr id="68907d91-f288-455d-9376-2d174f2df6a5"><td id=":Ob]" class="">3</td><td id="cYo&lt;" class="" style="width:213px">Availability of platform</td><td id="lz~D" class="" style="width:677px">Xandria should be available 24hrs/day 
-Users should be able to interact with the resources, signup, signout and login</td><td id="`e:@" class="" style="width:647px">5, 6, 7, 8, 9</td></tr><tr id="0d367de4-551f-4342-90e5-fe78bc053127"><td id=":Ob]" class="">4</td><td id="cYo&lt;" class="" style="width:213px">Availability of scraper</td><td id="lz~D" class="" style="width:677px">Users should be able to bookmark a page 24hrs/day</td><td id="`e:@" class="" style="width:647px">8, 9</td></tr><tr id="cddec7ea-25fd-4e3d-b913-64e8ad2babdb"><td id=":Ob]" class="">5</td><td id="cYo&lt;" class="" style="width:213px">JWT</td><td id="lz~D" class="" style="width:677px">The token stored in the browser of each logged-in user (as httpOnly cookie)</td><td id="`e:@" class="" style="width:647px">2, 10</td></tr><tr id="a7fe9fbe-44d6-4a61-b6b2-73416c7d8bcb"><td id=":Ob]" class="">6</td><td id="cYo&lt;" class="" style="width:213px">Scraper/API Secret</td><td id="lz~D" class="" style="width:677px">The secrete/auth mechanism that the API uses to validate a request to the scraper</td><td id="`e:@" class="" style="width:647px">9, 10, 11</td></tr><tr id="d1ae1a4c-db22-48e1-b63d-7fd737b9418e"><td id=":Ob]" class="">7</td><td id="cYo&lt;" class="" style="width:213px">Resources</td><td id="lz~D" class="" style="width:677px">All resources stored in the DB</td><td id="`e:@" class="" style="width:647px">- (2) All authenticated users should be able to read public resources
-- (11) Scraper should be the only one determining what the information about the resource is
-- (1, 2, 3) User shouldn’t be able to update/change information about the resource
-- (1, 2, 3) User shouldn’t be able to delete information about the resource
-- (5, 6, 9, 10) CRUD operations</td></tr><tr id="d4d9feb3-2062-4349-8b33-67ddf794d3a8"><td id=":Ob]" class="">8</td><td id="cYo&lt;" class="" style="width:213px">API Keys/Secrets</td><td id="lz~D" class="" style="width:677px">Keys and secrets used in the API </td><td id="`e:@" class="" style="width:647px">- 8, 9, 10</td></tr><tr id="85bba64f-4397-4ce9-b469-b6c09122ec37"><td id=":Ob]" class="">9</td><td id="cYo&lt;" class="" style="width:213px">Scraper Keys/Secrets</td><td id="lz~D" class="" style="width:677px">Keys and secrets used in the Scraper </td><td id="`e:@" class="" style="width:647px">- 8, 9, 10, 11</td></tr><tr id="1f37f17e-590a-4b66-abf4-27b56ed07015"><td id=":Ob]" class="">10</td><td id="cYo&lt;" class="" style="width:213px">Deployment Keys/Secrets</td><td id="lz~D" class="" style="width:677px">Keys and secrets used in the delivery pipeline </td><td id="`e:@" class="" style="width:647px">- 8</td></tr></tbody></table><h1 id="cfbcdc03-5c26-4604-ae88-7d972caeb018" class="">Threats and their Mitigations</h1><p id="1804a5e3-a8fc-46f9-bf64-555fdd47f8f2" class="">Types of Actors</p><ul id="6a98505c-d046-4cde-827b-b7c0a22c1f28" class="bulleted-list"><li style="list-style-type:disc"><strong>Accidental discovery</strong>: done by regular users who make a functional mistake in your application and gain access to privileged information or functionality.</li></ul><ul id="f4f94219-5a0f-47b4-ad0c-7b8c6edaf7e4" class="bulleted-list"><li style="list-style-type:disc"><strong>Automated malware</strong>: programs or scripts searching for known vulnerabilities that report them back to a central collection site.</li></ul><ul id="829a2c9f-3271-472b-9e67-a0cc7300d025" class="bulleted-list"><li style="list-style-type:disc"><strong>The curious attacker</strong>: security researchers or regular users who notice something wrong with an application and decide to explore further.</li></ul><ul id="5d3a0a7a-5819-4318-b98d-20de00b24f3a" class="bulleted-list"><li style="list-style-type:disc"><strong>The motivated attacker</strong>: an attacker seeking financial or other gains from the attack.</li></ul><ul id="24d97681-9e35-4a99-83ae-2d39280f515e" class="bulleted-list"><li style="list-style-type:disc"><strong>Organized crime</strong>: criminals seeking high stake payouts, such as cracking e-commerce or corporate banking applications, for financial gain.</li></ul><p id="ccf6fbc8-5b0e-4725-b04e-6dec5e707c38" class="">
-</p><p id="3e9ab4e0-24a6-4139-a457-8cf0e3a2c2e8" class="">DREAD (Meier et al., 2003):</p><ul id="3ce4833d-a832-4baa-b225-fb8293263663" class="bulleted-list"><li style="list-style-type:disc"><strong>Damage:</strong> Understand the potential damage a particular threat is capable of causing.</li></ul><ul id="926dd603-acc8-4a35-9b8f-2d2e60291655" class="bulleted-list"><li style="list-style-type:disc"><strong>Reproducibility:</strong> Identify how easy it is to replicate an attack.</li></ul><ul id="42450bd8-8de0-473b-b8a4-98cf32072690" class="bulleted-list"><li style="list-style-type:disc"><strong>Exploitability:</strong> Analyze the system’s vulnerabilities to ascertain susceptibility to cyberattacks.</li></ul><ul id="65e97014-8a84-4e51-8557-9804bf79c126" class="bulleted-list"><li style="list-style-type:disc"><strong>Affected Users:</strong> Calculate how many users would be affected by a cyberattack.</li></ul><ul id="539936b7-ee82-45c1-a8ad-dd212d486051" class="bulleted-list"><li style="list-style-type:disc"><strong>Discoverability:</strong> Determine how easy it is to discover vulnerable points in the system infrastructure.</li></ul><p id="d9139522-5513-4803-b92d-38f279b472d4" class="">
-</p><ul id="64dde794-07bd-4942-be35-32dfa8af8d82" class="bulleted-list"><li style="list-style-type:disc">Risk Assessment:<ul id="27a9646f-b56b-432c-ab01-aca4ba9ede47" class="bulleted-list"><li style="list-style-type:circle">(A): Accept: Decide that business impact is acceptable</li></ul><ul id="965b3dcb-166a-440e-8aa3-54669ef66e8b" class="bulleted-list"><li style="list-style-type:circle">(E): Eliminate: Remove components that make the vulnerability possible</li></ul><ul id="1b846373-69f1-4a56-af17-2bca6a916f8a" class="bulleted-list"><li style="list-style-type:circle">(M): Mitigate: Add checks or controls that reduce the risk impact or the chance of occurrence</li></ul></li></ul><p id="057302fb-cbfc-424e-a189-3f753ac3e025" class="">
-</p><table id="e6af31a3-492c-4f60-b17e-a24270824fe9" class="simple-table"><thead class="simple-table-header"><tr id="66f4b0e6-47d6-4208-befd-188e3bb9b66b"><th id="[v`G" class="simple-table-header-color simple-table-header" style="width:323px">Threat</th><th id="f?qP" class="simple-table-header-color simple-table-header" style="width:118px">Assessment</th><th id="c?OH" class="simple-table-header-color simple-table-header" style="width:499px">Potential Mitigation</th><th id="NMYG" class="block-color-teal_background simple-table-header">STRIDE Code</th></tr></thead><tbody><tr id="c90029ae-63c7-4cec-a4d1-56894f603c57"><td id="[v`G" class="" style="width:323px">DDoS Scraper → Unauthenticated access to Scraper</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- frontend sends URL and title to the backend, If scraper is down, the bookmark is still saved with the title + logging the URL to scrape it as soon as the scaper is up again
-- a shared secret between Backend and Scraper</td><td id="NMYG" class="block-color-teal_background">D</td></tr><tr id="0e96d563-e085-421b-acbd-4251643b4fae"><td id="[v`G" class="" style="width:323px">DoS API interface</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- throttling</td><td id="NMYG" class="block-color-teal_background">D</td></tr><tr id="7ad63a0a-bcb5-4d2c-814f-edd03d90da54"><td id="[v`G" class="" style="width:323px">Websites block Scraper</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- rotating proxies</td><td id="NMYG" class="block-color-teal_background">D</td></tr><tr id="d4ec7ff6-d10b-4457-9f16-3b59b6c47721"><td id="[v`G" class="" style="width:323px">Information Disclosure</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- access resources with GraphQL query, that the user is not authorized to access → elaborate auth schema</td><td id="NMYG" class="block-color-teal_background">I</td></tr><tr id="bc09244b-4808-4869-b4e3-27d6d2d562f3"><td id="[v`G" class="" style="width:323px">Deploying insecure Code</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- having security check in the Pipeline → DevSecOps</td><td id="NMYG" class="block-color-teal_background">I</td></tr><tr id="292b2e10-80fa-437d-ad8f-7f3a7160f145"><td id="[v`G" class="" style="width:323px">Elevation of Privilege</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- run with least privilege
-- role-based auth</td><td id="NMYG" class="block-color-teal_background">E</td></tr><tr id="b82562a8-90bd-4f9e-a734-1eb6f0fb6382"><td id="[v`G" class="" style="width:323px">Tampering with Queries</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- make sure Schema Introspection is disabled
-- limit query complexity</td><td id="NMYG" class="block-color-teal_background">T</td></tr><tr id="1a52e58d-98dc-4f67-9199-9b6e85b36fca"><td id="[v`G" class="" style="width:323px">Repudiation</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- detailed and differentiated logging
-- timestamps
-- digital signatures?
-- audit trails</td><td id="NMYG" class="block-color-teal_background">R</td></tr><tr id="eedcf0d3-33a6-456d-80d2-c0f74cdfc593"><td id="[v`G" class="" style="width:323px">Dirty links (from frontend/extension to the backend/scraper) → into DB</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- sanitize resource links, descriptions…
-- block URLs from known malicious sources (Blocklist)</td><td id="NMYG" class="block-color-teal_background">T</td></tr><tr id="76daf298-37b8-4192-81f8-53b6e257a2be"><td id="[v`G" class="" style="width:323px">Scrape protected pages</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- ensure no private data is scraped by disabling the extension</td><td id="NMYG" class="block-color-teal_background">I</td></tr><tr id="a7fd5710-f9c5-46d0-8dce-b75d1495b9c5"><td id="[v`G" class="" style="width:323px">Hackers could write their own website with embedded malicious code and let it be scraped</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- sanitize scraped content (Scraper)
-- sanitize anything that is written into the database (Server)</td><td id="NMYG" class="block-color-teal_background">E</td></tr><tr id="5ce0b391-1663-436b-b33a-7f42422d015a"><td id="[v`G" class="" style="width:323px">External access to DB</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- Firewall
-- Accessing DB via SSH
-- VPC
-- Protecting Auth Data with ENV Variables</td><td id="NMYG" class="block-color-teal_background">T</td></tr><tr id="6e7d40fc-b334-4453-843b-80de05feb48e"><td id="[v`G" class="" style="width:323px">Server availability</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- Scaling
-- Rollbacks
-- Load balancing</td><td id="NMYG" class="block-color-teal_background">D</td></tr><tr id="6c31d9e3-d924-4274-9d50-63438fd84495"><td id="[v`G" class="" style="width:323px">Database availability</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- Replication
-- Sharding
-- Scaling
-- Backups
-- Rollbacks</td><td id="NMYG" class="block-color-teal_background">D</td></tr><tr id="a94923b1-965a-4dea-ba03-664a6874709e"><td id="[v`G" class="" style="width:323px">Scraper Availability</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- Scaling
-- Rollbacks
-- Load balancing</td><td id="NMYG" class="block-color-teal_background">D</td></tr><tr id="09cd8788-b81c-41f5-b362-ae30dec9de34"><td id="[v`G" class="" style="width:323px">Error Message discloses information</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- make sure that malicious actors cannot access any information about internal resources via Error Messages or Logs
-- write custom error messages</td><td id="NMYG" class="block-color-teal_background">I</td></tr><tr id="aa5a33e2-1d20-424d-83b0-eeeddae6f485"><td id="[v`G" class="" style="width:323px">Spam by making accounts</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- rate limit
-- verify email</td><td id="NMYG" class="block-color-teal_background">S</td></tr><tr id="f583dbac-d663-49cc-a685-1b6d745bdfaf"><td id="[v`G" class="" style="width:323px">Unauthenticated read of resources</td><td id="f?qP" class="" style="width:118px">A</td><td id="c?OH" class="" style="width:499px">- auth flow</td><td id="NMYG" class="block-color-teal_background"></td></tr><tr id="5f5957ad-812a-40dd-ac90-605f01d2feb7"><td id="[v`G" class="" style="width:323px">Server-Side Request Forgery</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- Firewall policy or network access control rules to block all but essential intranet traffic
-- Sanitize and validate input data</td><td id="NMYG" class="block-color-teal_background"></td></tr><tr id="220db87e-4f61-4dd5-9b8b-a2667ecf6c36"><td id="[v`G" class="" style="width:323px">Cross-Site Request Forgery</td><td id="f?qP" class="" style="width:118px">M</td><td id="c?OH" class="" style="width:499px">- deploy frontend and backend on the same domain
-    → set cookie sameSite-property to “lax”</td><td id="NMYG" class="block-color-teal_background"></td></tr></tbody></table><p id="c1f05520-21d9-4b3f-8e1d-d5b01d4f7e73" class="">
-</p><h2 id="355895c0-7b0c-4335-b138-9c1f528483f7" class="">Currently Implemented Security Measures</h2><p id="d0a8d0ea-376e-47f0-af4a-995aeb82b3d9" class="">
-</p><p id="9412d73c-d1a7-4503-bf84-c074fb99be20" class=""><span style="border-bottom:0.05em solid"><strong>Server</strong></span></p><ul id="62663a5e-ae44-4d46-a71d-c299dfd8f455" class="bulleted-list"><li style="list-style-type:disc">TLS/SSL → HTTP-Request Encryption</li></ul><ul id="09f70007-4437-4c4d-990f-192356659614" class="bulleted-list"><li style="list-style-type:disc">JWT in httpOnly Cookies<ul id="d2e3c4e3-39c8-4ece-9404-2784d90db356" class="bulleted-list"><li style="list-style-type:circle">JWT generation with secret only known to the server</li></ul><ul id="db797429-7f49-4308-a31b-fed7c69f4de3" class="bulleted-list"><li style="list-style-type:circle">cannot be accessed via the client, only send with each request</li></ul><ul id="96032f62-169b-4777-bd94-07986b30558d" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-gray_background"><span style="border-bottom:0.05em solid"><strong>TODO: Deploy frontend and backend on the same domain, to set sameSite-property to avoid CSRF-Attacks</strong></span></mark></li></ul></li></ul><ul id="ded593a4-2633-42f1-8df9-c03ee1ec4d99" class="bulleted-list"><li style="list-style-type:disc">CORS</li></ul><ul id="b2a72f25-903a-49e8-87a5-142aaec7b7ae" class="bulleted-list"><li style="list-style-type:disc">Scraper<ul id="0b477e73-1c22-46ce-a4e9-7d878bc0a030" class="bulleted-list"><li style="list-style-type:circle">make sure the scraper can be sidestepped (the extension provides title, URL that is saved in the database if the scraper doesn’t respond) </li></ul><ul id="6a8face6-1135-4777-a0fe-d320aa65f0f0" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-gray_background"><strong><span style="border-bottom:0.05em solid">TODO: prevent scraper from scraping URLs from blocklists</span></strong></mark></li></ul></li></ul><ul id="4eeaa099-6a11-4b67-9207-260581feb4ff" class="bulleted-list"><li style="list-style-type:disc">VPC:<ul id="f38d4f85-20d0-4472-8b95-07e2fd2e86bf" class="bulleted-list"><li style="list-style-type:circle">Only route requests to private IPs (such as the scraper) through the VPC connector</li></ul></li></ul><ul id="621e83a2-021f-48f6-9a26-96a8f985d344" class="bulleted-list"><li style="list-style-type:disc">Express helmet middleware (setting security headers)</li></ul><ul id="299cde95-2bda-4aa0-9e45-ab75c7f0e300" class="bulleted-list"><li style="list-style-type:disc">Authentication → If JWT doesn’t hold the ID of valid User context creation for GraphQL will fail<ul id="edf28f2b-87f2-484d-b804-306be08f8e01" class="bulleted-list"><li style="list-style-type:circle">separate Auth REST Endpoint to avoid GraphQL insecurities</li></ul><ul id="dbdc7a7f-977c-4cc3-8ba0-4ab12a758dbd" class="bulleted-list"><li style="list-style-type:circle">if no JWT for GraphQL-endpoint is provided, context creation will fail and no query executed</li></ul></li></ul><ul id="577285b9-2dbc-4eb1-9462-d71e9c29e840" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background"><span style="border-bottom:0.05em solid"><strong>TODO: Disable Introspection/schema autogeneration</strong></span></mark> (currently enabled for development reasons)</li></ul><ul id="d6bf7e89-df08-4f93-adbe-2dde4012cc28" class="bulleted-list"><li style="list-style-type:disc">Resolver-based access control<ul id="d893bb22-c6a7-43d4-8f63-487b2fb41251" class="bulleted-list"><li style="list-style-type:circle">Mutations can only be executed with <code>{isAuthenticated: true}</code> and a valid current user</li></ul><ul id="e7997cc6-f81b-486c-a194-16d203694dba" class="bulleted-list"><li style="list-style-type:circle">For updating data: Input to resolvers is only the data to be changed, never the UserID (that will always be the current user)</li></ul></li></ul><ul id="493bab84-9fe6-4a47-8e12-7a55ee72b14f" class="bulleted-list"><li style="list-style-type:disc">Encryption of sensitive data<ul id="ed49f92e-56c3-418e-9bc1-a82b941cf254" class="bulleted-list"><li style="list-style-type:circle">Password encrypted with scrypt-algorithm with a 32 Byte randomly generated salt</li></ul><ul id="83da1b64-9e02-4661-a405-fb327ff0f045" class="bulleted-list"><li style="list-style-type:circle">Password+Salt set to private in the schema → can only be accessed via OGM</li></ul><ul id="45b8195d-6e10-45a4-8542-81d15189e525" class="bulleted-list"><li style="list-style-type:circle">Update password only possible with old password</li></ul><ul id="6bcbcaf1-69a1-4cc0-aa30-5cd78d778c88" class="bulleted-list"><li style="list-style-type:circle">Password needs to be at least 10 characters and at least have one lower and upper case characters + number + special character</li></ul></li></ul><ul id="cfd24b00-312a-4ccd-8edb-8837df4b951f" class="bulleted-list"><li style="list-style-type:disc">Input validation and Sanitation for REST- and GraphQL-Endpoints<ul id="f1596c55-1463-42e5-8b94-40f0337974a1" class="bulleted-list"><li style="list-style-type:circle">Limit Query Complexity → We have circular relationships that can be exploited</li></ul><ul id="a5a367ff-bb30-4158-863f-34b72e899267" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-gray_background"><span style="border-bottom:0.05em solid"><strong>TODO: More thorough validation/sanitation for GraphQL-Endpoint</strong></span></mark></li></ul><ul id="a7caeac2-6615-4b48-a60c-4f01eb4911bb" class="bulleted-list"><li style="list-style-type:circle"><span style="border-bottom:0.05em solid"><strong><mark class="highlight-gray_background">TODO: Rate limit GraphQL-queries</mark></strong></span></li></ul></li></ul><ul id="70733826-1428-4ad5-a746-e50653bcdc85" class="bulleted-list"><li style="list-style-type:disc">Custom Error Messages, to avoid enclosing any internal information</li></ul><ul id="f75b9eb7-90a6-4252-830b-8fed256930b8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background"><strong><span style="border-bottom:0.05em solid">Container Image Security:</span></strong></mark><ul id="2a428bd0-df5e-4cc8-9d70-efdaa1deccb4" class="bulleted-list"><li style="list-style-type:circle">Integrating security checks into our delivery pipeline on Github Actions</li></ul></li></ul><ul id="ea575a0f-1c65-438b-b687-f2d67845d237" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background"><span style="border-bottom:0.05em solid"><strong>TODO: Binary Authorisation</strong></span></mark><ul id="113e1e42-0b38-47d1-aa08-eff6b150ec1f" class="bulleted-list"><li style="list-style-type:circle">Securing against supply chain attacks in deploying docker images on Cloud Run which are hosted in Artifact Registry in our network </li></ul></li></ul><ul id="04875953-ec46-4b69-beda-37cb94461766" class="bulleted-list"><li style="list-style-type:disc">Logging<ul id="201658d1-8393-4e7a-91a2-3c979568ad76" class="bulleted-list"><li style="list-style-type:circle">GCP Logs Explorer</li></ul></li></ul><ul id="2baf1c2e-35a0-4919-8d3c-f51d92bea785" class="bulleted-list"><li style="list-style-type:disc">Monitoring:<ul id="12ccbd3d-e0fe-48c6-81d1-fa7c033f9a22" class="bulleted-list"><li style="list-style-type:circle">Cloud Run Metrics</li></ul></li></ul><p id="90b5c343-27e7-4cbd-bac0-e7392271d5a3" class="">
-</p><p id="ef6fb326-08cc-4ad6-a774-426a5d456d07" class=""><span style="border-bottom:0.05em solid"><strong>Scraper</strong></span></p><p id="ceaea51f-20c2-4e32-9a6c-7a69f52c0c10" class="">KEY: <mark class="highlight-gray_background"><span style="border-bottom:0.05em solid"><strong>WORK IN PROGRESS</strong></span></mark></p><ul id="6f54cfed-495d-4125-8f8d-658b47d71d72" class="bulleted-list"><li style="list-style-type:disc">TLS/SSL enabled on the Cloud Run endpoint</li></ul><ul id="f4d63bfe-c620-431f-b71b-44c52d2e608d" class="bulleted-list"><li style="list-style-type:disc">CORS</li></ul><ul id="467fef5c-1e4e-4ead-80d1-bca4f1b499b5" class="bulleted-list"><li style="list-style-type:disc">HTTPS Redirect</li></ul><ul id="4136151b-e0f5-478c-b9de-c2ed3fe76753" class="bulleted-list"><li style="list-style-type:disc">VPC:<ul id="f65a2017-5953-4fad-9d8c-ab54ca51740d" class="bulleted-list"><li style="list-style-type:circle">The scraper (Cloud Run serverless instance) should only be accessible for the API (also a Cloud Run serverless instance). They are both parts of the same VPC network (each connected to the VPC via a Serverless VPC Access connector) with the scraper’s ingress also set to <code>internal only</code> to ensure its traffic is solely to and from the API. </li></ul></li></ul><ul id="92e6fc1e-3dc5-40c0-9a77-bef0856075d5" class="bulleted-list"><li style="list-style-type:disc">Rotating proxies<ul id="b04d628d-52e3-4001-b621-58fb2abb446b" class="bulleted-list"><li style="list-style-type:circle">Avoiding blacklisting from websites by routing through short-lived HTTP(S) proxies at runtime. The proxies are stored and updated in Redis every five minutes by means of a Cloud Function. </li></ul></li></ul><ul id="00abed60-2129-48a8-88f9-d15c717b7e6c" class="bulleted-list"><li style="list-style-type:disc">Task management queue<ul id="d592892f-059b-41b8-83af-b98e1a6599ac" class="bulleted-list"><li style="list-style-type:circle">To protect against overwhelming the server’s/container’s resources, Celery is used to handle scraping jobs separately. </li></ul></li></ul><ul id="c284d35e-7046-47ee-89ca-a2cea16c53fa" class="bulleted-list"><li style="list-style-type:disc">Headless browsers<ul id="d89d9982-4e29-4c17-aed5-ad7efa0e53a2" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-gray_background"><span style="border-bottom:0.05em solid"><strong>Sandboxed launches to prevent SSRF are still needed.</strong></span></mark></li></ul></li></ul><ul id="d6140084-1a6d-439b-99b9-4709a05e9bdf" class="bulleted-list"><li style="list-style-type:disc">Input URL validation<ul id="b10b94da-e33c-49d1-8071-2545c04897d3" class="bulleted-list"><li style="list-style-type:circle">Validating whether the URL is valid/exists and a public IP address</li></ul><ul id="8266a1e0-3e35-43d0-800b-47f2dacdb218" class="bulleted-list"><li style="list-style-type:circle">Robots.txt: checking whether the User-Agent is set to * (all) &amp; the if the disallow path != URL given (or is root)</li></ul><ul id="1e3f6435-13c3-4858-8065-e36b8de46c3f" class="bulleted-list"><li style="list-style-type:circle">XSS in URL is currently mitigated by whitelisting safe characters.</li></ul><ul id="cb9fc610-a8d8-464e-a89e-bccc21b882a7" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-gray_background"><span style="border-bottom:0.05em solid"><strong>Integrating Google’s Web Risk API</strong></span></mark></li></ul></li></ul><ul id="33e4f1b6-a258-4c16-8e38-2904ee5ecef1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background"><strong><span style="border-bottom:0.05em solid">Container Image Security:</span></strong></mark><ul id="f57e1bed-614f-4dcf-989a-7568335ffd2b" class="bulleted-list"><li style="list-style-type:circle">Integrating security checks into our delivery pipeline on GitHub Actions</li></ul></li></ul><ul id="e142fd1b-def1-483a-b4cf-7934ef42f72c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-gray_background"><span style="border-bottom:0.05em solid"><strong>Binary Authorisation:</strong></span></mark><ul id="62299838-707e-4e0f-8a49-4af282a4a8db" class="bulleted-list"><li style="list-style-type:circle">Securing against supply chain attacks in deploying docker images on Cloud Run which are hosted in Artifact Registry in our network</li></ul></li></ul><ul id="27fb6147-79d6-43af-9301-7cfded7e9ee5" class="bulleted-list"><li style="list-style-type:disc">Request security headers:<pre id="932a316e-1209-4af3-b477-150d2a53f7f5" class="code"><code>&quot;Access-Control-Allow-Credentials&quot;
-&quot;Access-Control-Allow-Origin&quot;
-&quot;Connection&quot;
-&quot;Content-Length&quot;
-&quot;Content-Security-Policy&quot;
-&quot;Date&quot;
-&quot;ETag&quot;
-&quot;Expect-CT&quot;
-&quot;Keep-Alive&quot;
-&quot;Referrer-Policy&quot;
-&quot;Strict-Transport-Security&quot;
-&quot;X-Content-Type-Options&quot;
-&quot;X-DNS-Prefetch-Control&quot;
-&quot;X-Download-Options&quot;
-&quot;X-Frame-Options&quot;
-&quot;X-XSS-Protection&quot;</code></pre></li></ul><ul id="8be2c45b-da58-4964-b6d8-7367362620ee" class="bulleted-list"><li style="list-style-type:disc">Logging<ul id="d22d4a0c-7b9c-4fc9-9382-17e2bba4ae09" class="bulleted-list"><li style="list-style-type:circle">Currently using the standard built-in python logging utility to output into GCP Logs Explorer</li></ul></li></ul><ul id="f7cad344-9e9d-4a7a-9f0e-0efdfee8f08b" class="bulleted-list"><li style="list-style-type:disc">Monitoring:<ul id="b7a25494-b5ed-47f5-a48a-6d31a9d39763" class="bulleted-list"><li style="list-style-type:circle">Cloud Run Metrics</li></ul></li></ul><p id="86c7b4dc-4ac5-4245-811b-2c66ca2abfcd" class="">
-</p><p id="f5bf56dc-cd25-4496-8768-093ef1e931e5" class=""><span style="border-bottom:0.05em solid"><strong>Data Stores</strong></span></p><ul id="b21113d2-3015-4ef6-81f0-1a2a277d1ca0" class="bulleted-list"><li style="list-style-type:disc">Neo4j<ul id="9270b55a-6499-49a4-864e-d9c8293c3d0b" class="bulleted-list"><li style="list-style-type:circle">Schema-based access control<ul id="78642306-bba3-44b2-ab66-52cd963b529e" class="bulleted-list"><li style="list-style-type:square">Any query can only be executed with a valid JWT that holds information for a valid user from the database</li></ul><ul id="a7008a4f-78bd-463b-84f3-187ad72269dd" class="bulleted-list"><li style="list-style-type:square">User generation is binding → The current user can only update or delete their own user data +  access only notes and bookmarks that they have written themselves</li></ul><ul id="cf19bb48-d4de-4e6f-9fd0-7d3c8bc2d51b" class="bulleted-list"><li style="list-style-type:square">Salt, Email,  and Password are set to private → client is not able to query these, only accessible with OGM (server)</li></ul></li></ul></li></ul><ul id="4cf2a081-f955-41d5-9c76-07e7fb2ad1a2" class="bulleted-list"><li style="list-style-type:disc">Redis (MemoryStore on GCP)<ul id="89cc699a-c4a5-4fa7-9ece-e8d35bf7831c" class="bulleted-list"><li style="list-style-type:circle">Serverless VPC Access<ul id="6ef5f0e8-22ea-433d-bc02-c632f5543a04" class="bulleted-list"><li style="list-style-type:square">Memorystore instance’s private IP address is visible to a single VPC network. It only permits connections from resources that are contained within the same region [eu-west-3]. </li></ul><ul id="5b165b89-e03e-431e-8db5-787fb0dae781" class="bulleted-list"><li style="list-style-type:square">Serverless VPC Access connector created in the same region [eu-west-3] as both Cloud Run and Memorystore and associated with the same VPC as Memorystore.</li></ul></li></ul></li></ul><p id="22e05d56-ab5b-4730-8035-e458f01a883e" class="">
-</p><p id="7e34a2a9-532e-4989-9bdc-3ff201d0da40" class="">
-</p></div></article></body></html>
+1. Application Name: Xandria
+2. Application Version: 1.0 (Development)
+3. Description: Collaborative search engine and bookmarking tool running on a graph database using GraphQL. Users can use a browser extension to bookmark websites that will be imported to the platform (via the Scraper) and discoverable for all other users. Each user can make public comments and private notes on resources and bookmark them, to save for later
+4. Document Owner: Sonja Sönnichsen & Athi Fongoqa
+5. Participants: Sonja Sönnichsen, Athi Fongoqa & Joshua Knauber
+6. Reviewer: Peter Ruppel
+
+### External Dependencies
+
+1. Apollo: The backend runs on Apollo Server, and the frontend uses Apollo Client to interact with the Backend
+2. GraphQL: Query language for the database
+3. Neo4j: Graph database
+4. Express: REST Endpoints for Auth + Middleware for cookie handling
+5. GCP Cloud Run: Serverless deployment
+6. GitHub Actions: CI/CD
+7. FastAPI: Backend will request resource details [via URL sent] from main/only endpoint
+8. Redis: URL’s queued in caches
+9. Celery: scraping task queue management
+
+### Entry Points
+
+| ID | Name | Description |
+| --- | --- | --- |
+| 1 | HTTPS Port | Main Access point for Frontend to connect with the backend |
+| 1.1 | /graphql | Access point for GraphQL Post-Request |
+| 1.2 | /login | REST Endpoints for Auth |
+| 1.3 | /signup | REST Endpoints for Auth |
+| 1.4 | /refresh | REST Endpoints for Auth |
+| 1.5 | /signout | REST Endpoints for Auth |
+| 2 | HTTPS Port | Request access point (API → Scraper) |
+| 2.1 | / | Resource URL passed  |
+| 2.2 | HTML | HTML parsed by scraper |
+| 3 | Browser Extension | Application that sends request to the scraper, through the API |
+
+### Exit Points
+
+- Response and Error Messages
+- Extracting page content
+- Logging, Monitoring?
+
+| ID | Name | Description | Trust Levels |
+| --- | --- | --- | --- |
+| 1 | Responses | Responses by Server and Scraper | 2, 7, 8, 9 |
+| 2 | Error messages | Thrown by Server, Scraper, Database | 2, 7, 8, 9 |
+| 3 | Logging | Write to error.log  | 5, 6, 8, 9 |
+| 4 | Monitoring | On Google Cloud Dashboard | 5, 6, 8, 9 |
+
+### Trust Levels
+
+| ID | Name | Description | Access Rights |
+| --- | --- | --- | --- |
+| 1 | Anonymous Web User | A user who has connected to the platform but has not provided valid credentials. | <ul><li> Access HTTPS Port </li><li> Login with valid credentials </li><li> Sign up a new user </li><li> (Future) Access the platform to search + read public resources</li></ul> |
+| 2 | Valid User | A user who has logged in with valid credentials and thus sends a valid JWT with each request. | <ul><li> All that (1) can do </li><li> Access browser extension </li><li> Add new bookmarks/resources via browser extension </li><li> Add notes and comments to resources </li><li> Update their own profile data (username, name, email, password)</li></ul> |
+| 3 | Invalid User | A user who has attempted to log in with invalid credentials. | - All that (1) can do |
+| 4 | Browser Extension | Application running in a logged-in user’s browser. | <ul><li> If it has valid JWT → (2) </li><li> If it has no credentials → (1)</li></ul> |
+| 5 | Database Server Administrator | The DB server administrator has read and write access to the DB used by Xandria. | - Full administrative rights to databases |
+| 6 | Database Read/Write User | The database user account is used to access the database for read and write access. | - Read and write access to Neo4j and Redis databases |
+| 7 | Frontend Developer | A developer that has access to the frontend code and deployments. | <ul><li> Read and write access to frontend</li><li> Read and write access to deployment</li></ul> |
+| 8 | Backend Administrator | A developer that has ownership of the API and its deployment pipelines. | - Full administrative rights to backend and delivery pipeline |
+| 9 | Backend Developer | A developer that has access to the API, scraper, database connection and deployment pipelines. | <ul><li> Read and write access to backend </li><li> Read and write access to scraper </li><li> Database Read/Write User </li><li> Read and write access to delivery pipeline</li></ul> |
+| 10 | API | This is the process in which the web server executes code as and authenticates itself against the database server as. | <ul><li> Read and write access to Neo4j database </li><li> Write access to scraper</li></ul> |
+| 11 | Scraper | This is the process in which the web server passes off a URL to the scraper | - Read and write access to Redis database |
+
+### Assets
+
+| ID | Name | Description | Trust Level |
+| --- | --- | --- | --- |
+| 1 | User Login Details | The login credentials that a respective valid user stores in the database | 2, 6 |
+| 2 | User Personal Data | Personal Data (name, email etc) that a respective valid user stores in the database | 2, 6 |
+| 3 | Availability of platform | <ul><li>Xandria should be available 24hrs/day </li><li>Users should be able to interact with the resources, signup, signout and login</li></ul> | 5, 6, 7, 8, 9 |
+| 4 | Availability of scraper | Users should be able to bookmark a page 24hrs/day | 8, 9 |
+| 5 | JWT | The token stored in the browser of each logged-in user (as httpOnly cookie) | 2, 10 |
+| 6 | Scraper/API Secret | The secrete/auth mechanism that the API uses to validate a request to the scraper | 9, 10, 11 |
+| 7 | Resources | All resources stored in the DB | <ul><li> (2) All authenticated users should be able to read public resources </li><li> (11) Scraper should be the only one determining what the information about the resource is </li><li> (1, 2, 3) User shouldn’t be able to update/change information about the resource </li><li>(1, 2, 3) User shouldn’t be able to delete information about the resource </li><li> (5, 6, 9, 10) CRUD operations</li></ul> |
+| 8 | API Keys/Secrets | Keys and secrets used in the API  | - 8, 9, 10 |
+| 9 | Scraper Keys/Secrets | Keys and secrets used in the Scraper  | - 8, 9, 10, 11 |
+| 10 | Deployment Keys/Secrets | Keys and secrets used in the delivery pipeline  | - 8 |
+
+# Threats and their Mitigations
+
+Types of Actors
+
+- **Accidental discovery**: done by regular users who make a functional mistake in your application and gain access to privileged information or functionality.
+- **Automated malware**: programs or scripts searching for known vulnerabilities that report them back to a central collection site.
+- **The curious attacker**: security researchers or regular users who notice something wrong with an application and decide to explore further.
+- **The motivated attacker**: an attacker seeking financial or other gains from the attack.
+- **Organized crime**: criminals seeking high stake payouts, such as cracking e-commerce or corporate banking applications, for financial gain.
+
+DREAD (Meier et al., 2003):
+
+- **Damage:** Understand the potential damage a particular threat is capable of causing.
+- **Reproducibility:** Identify how easy it is to replicate an attack.
+- **Exploitability:** Analyze the system’s vulnerabilities to ascertain susceptibility to cyberattacks.
+- **Affected Users:** Calculate how many users would be affected by a cyberattack.
+- **Discoverability:** Determine how easy it is to discover vulnerable points in the system infrastructure.
+
+- Risk Assessment:
+    - (A): Accept: Decide that business impact is acceptable
+    - (E): Eliminate: Remove components that make the vulnerability possible
+    - (M): Mitigate: Add checks or controls that reduce the risk impact or the chance of occurrence
+
+| Threat | Assessment | Potential Mitigation | STRIDE Code |
+| --- | --- | --- | --- |
+| DDoS Scraper → Unauthenticated access to Scraper | M | <ul><li> frontend sends URL and title to the backend, If scraper is down, the bookmark is still saved with the title + logging the URL to scrape it as soon as the scaper is up again</li><li>a shared secret between Backend and Scraper</li></ul> | D |
+| DoS API interface | M | - throttling | D |
+| Websites block Scraper | M | - rotating proxies | D |
+| Information Disclosure | M | - access resources with GraphQL query, that the user is not authorized to access → elaborate auth schema | I |
+| Deploying insecure Code | M | - having security check in the Pipeline → DevSecOps | I |
+| Elevation of Privilege | M | <ul><li> run with least privilege </li><li> role-based auth </li></ul>| E |
+| Tampering with Queries | M | <ul><li> make sure Schema Introspection is disabled</li><li>limit query complexity</li></ul> | T |
+| Repudiation | M | <ul><li>detailed and differentiated logging</li><li> timestamps </li><li> digital signatures? </li><li> audit trails </li></ul> | R |
+| Dirty links (from frontend/extension to the backend/scraper) → into DB | M | <ul><li>sanitize resource links, descriptions etc.</li><li> block URLs from known malicious sources (Blocklist)</li></ul> | T |
+| Scrape protected pages | M | - ensure no private data is scraped by disabling the extension | I |
+| Hackers could write their own website with embedded malicious code and let it be scraped | M | <ul><li> sanitize scraped content (Scraper)</li><li>sanitize anything that is written into the database (Server)</li></ul> | E |
+| External access to DB | M | <ul><li> Firewall </li><li>Accessing DB via SSH</li><li> VPC </li><li> Protecting Auth Data with ENV Variables </li></ul> | T |
+| Server availability | M | <ul><li> Scaling</li><li> Rollbacks</li><li> Load balancing </li></ul>| D |
+| Database availability | M | <ul><li>Replication</li><li> Sharding </li><li> Scaling </li><li> Backups </li><li> Rollbacks </li></ul> | D |
+| Scraper Availability | M | <ul><li> Scaling </li><li> Rollbacks </li><li> Load balancing </li></ul>| D |
+| Error Message discloses information | M | <ul><li> make sure that malicious actors cannot access any information about internal resources via Error Messages or Logs </li><li> write custom error messages </li></ul>| I |
+| Spam by making accounts | M | - rate limit verify email | S |
+| Unauthenticated read of resources | A | - auth flow |  |
+| Server-Side Request Forgery | M | <ul><li> Firewall policy or network access control rules to block all but essential intranet traffic </li><li> Sanitize and validate input data </li></ul>|  |
+| Cross-Site Request Forgery | M | <ul><li> deploy frontend and backend on the same domain</li><li> → set cookie sameSite-property to “lax” </li></ul>|  |
+
+## Currently Implemented Security Measures
+
+**Server**
+KEY: <mark class="highlight-gray_background">**WORK IN PROGRESS**
+
+- TLS/SSL → HTTP-Request Encryption
+- JWT in httpOnly Cookies
+    - JWT generation with secret only known to the server
+    - cannot be accessed via the client, only send with each request
+    - <mark class="highlight-gray_background">**TODO: Deploy frontend and backend on the same domain, to set sameSite-property to avoid CSRF-Attacks**
+- CORS
+- Scraper
+    - make sure the scraper can be sidestepped (the extension provides title, URL that is saved in the database if the scraper doesn’t respond)
+    <ul id="6a8face6-1135-4777-a0fe-d320aa65f0f0" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-gray_background"><strong><span style="border-bottom:0.05em solid">TODO: prevent scraper from scraping URLs from blocklists</span></strong></mark></li></ul>
+- VPC:
+    - Only route requests to private IPs (such as the scraper) through the VPC connector
+- Express helmet middleware (setting security headers)
+- Authentication → If JWT doesn’t hold the ID of valid User context creation for GraphQL will fail
+    - separate Auth REST Endpoint to avoid GraphQL insecurities
+    - if no JWT for GraphQL-endpoint is provided, context creation will fail and no query executed
+- <mark class="highlight-gray_background">**TODO: Disable Introspection/schema autogeneration** (currently enabled for development reasons)
+- Resolver-based access control
+    - Mutations can only be executed with `{isAuthenticated: true}` and a valid current user
+    - For updating data: Input to resolvers is only the data to be changed, never the UserID (that will always be the current user)
+- Encryption of sensitive data
+    - Password encrypted with scrypt-algorithm with a 32 Byte randomly generated salt
+    - Password+Salt set to private in the schema → can only be accessed via OGM
+    - Update password only possible with old password
+    - Password needs to be at least 10 characters and at least have one lower and upper case characters + number + special character
+- Input validation and Sanitation for REST- and GraphQL-Endpoints
+    - Limit Query Complexity → We have circular relationships that can be exploited
+    - <mark class="highlight-gray_background">**TODO: More thorough validation/sanitation for GraphQL-Endpoint**
+    - <mark class="highlight-gray_background">**TODO: Rate limit GraphQL-queries**
+- Custom Error Messages, to avoid enclosing any internal information
+- <mark class="highlight-gray_background">**Container Image Security:**</mark>
+    - Integrating security checks into our delivery pipeline on Github Actions
+- <mark class="highlight-gray_background">**TODO: Binary Authorisation**</mark>
+    - Securing against supply chain attacks in deploying docker images on Cloud Run which are hosted in Artifact Registry in our network
+- Logging
+    - GCP Logs Explorer
+- Monitoring:
+    - Cloud Run Metrics
+
+**Scraper**
+
+KEY: <mark class="highlight-gray_background">**WORK IN PROGRESS**
+
+- TLS/SSL enabled on the Cloud Run endpoint
+- CORS
+- HTTPS Redirect
+- VPC:
+    - The scraper (Cloud Run serverless instance) should only be accessible for the API (also a Cloud Run serverless instance). They are both parts of the same VPC network (each connected to the VPC via a Serverless VPC Access connector) with the scraper’s ingress also set to `internal only` to ensure its traffic is solely to and from the API.
+- Rotating proxies
+    - Avoiding blacklisting from websites by routing through short-lived HTTP(S) proxies at runtime. The proxies are stored and updated in Redis every five minutes by means of a Cloud Function.
+- Task management queue
+    - To protect against overwhelming the server’s/container’s resources, Celery is used to handle scraping jobs separately.
+- Headless browsers
+    - <mark class="highlight-gray_background">**Sandboxed launches to prevent SSRF are still needed.**
+- Input URL validation
+    - Validating whether the URL is valid/exists and a public IP address
+    - Robots.txt: checking whether the User-Agent is set to * (all) & the if the disallow path != URL given (or is root)
+    - XSS in URL is currently mitigated by whitelisting safe characters.
+    - <mark class="highlight-gray_background">**Creating an internal blocklist**
+    - <mark class="highlight-gray_background">**Integrating Google’s Web Risk API**
+- <mark class="highlight-gray_background">**Container Image Security:**
+    - Integrating security checks into our delivery pipeline on GitHub Actions
+- <mark class="highlight-gray_background">**Binary Authorisation:**
+    - Securing against supply chain attacks in deploying docker images on Cloud Run which are hosted in Artifact Registry in our network
+- Request security headers:
+    
+    ```markdown
+    "Access-Control-Allow-Credentials"
+    "Access-Control-Allow-Origin"
+    "Connection"
+    "Content-Length"
+    "Content-Security-Policy"
+    "Date"
+    "ETag"
+    "Expect-CT"
+    "Keep-Alive"
+    "Referrer-Policy"
+    "Strict-Transport-Security"
+    "X-Content-Type-Options"
+    "X-DNS-Prefetch-Control"
+    "X-Download-Options"
+    "X-Frame-Options"
+    "X-XSS-Protection"
+    ```
+    
+- Logging
+    - Currently using the standard built-in python logging utility to output into GCP Logs Explorer
+- Monitoring:
+    - Cloud Run Metrics
+
+**Data Stores**
+
+- Neo4j
+    - Schema-based access control
+        - Any query can only be executed with a valid JWT that holds information for a valid user from the database
+        - User generation is binding → The current user can only update or delete their own user data +  access only notes and bookmarks that they have written themselves
+        - Salt, Email,  and Password are set to private → client is not able to query these, only accessible with OGM (server)
+- Redis (MemoryStore on GCP)
+    - Serverless VPC Access
+        - Memorystore instance’s private IP address is visible to a single VPC network. It only permits connections from resources that are contained within the same region [eu-west-3].
+        - Serverless VPC Access connector created in the same region [eu-west-3] as both Cloud Run and Memorystore and associated with the same VPC as Memorystore.
