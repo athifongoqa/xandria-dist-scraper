@@ -3,16 +3,12 @@ from urllib.parse import urljoin
 import repo
 import logging
 
-async def crawl(url, queued_count, maximum_items, get_html, extract_content):
+async def crawl(url, get_html, extract_content):
+    # TO-DO: Error handling
     if not url:
-        print('URL not provided', url)
-        return
-
-    total = queued_count + repo.count_visited() + repo.count_queued()
-    if total >= maximum_items:
-        print('Exiting! queued + visited over maximum:', queued_count, total)
-        return
-    print('gets here')
+        logging.info('URL not provided', url)
+        return 'URL not provided'
+        
     repo.add_to_queue(url)
 
     content = await _crawl(url, get_html, extract_content)
@@ -24,6 +20,7 @@ async def crawl(url, queued_count, maximum_items, get_html, extract_content):
     return content
 
 def add_results_to_queue(urls, allow_url_filter):
+    # TO-DO: Error handling
     if not urls:
         return
 
@@ -33,6 +30,7 @@ def add_results_to_queue(urls, allow_url_filter):
             repo.add_to_visit(url)
 
 async def _crawl(url, get_html, extract_content):
+    # TO-DO: Error handling
     print('Crawl ->', url)
 
     html = await get_html(url)
@@ -48,6 +46,7 @@ async def _crawl(url, get_html, extract_content):
     return content
 
 def _extract_links(url, soup):
+    # TO-DO: Error handling
     return list({
         urljoin(url, a.get('href'))
         for a in soup.find_all('a')
@@ -55,4 +54,5 @@ def _extract_links(url, soup):
     })
 
 def _seen(url):
+    # TO-DO: Error handling
     return repo.is_visited(url) or repo.is_queued(url)

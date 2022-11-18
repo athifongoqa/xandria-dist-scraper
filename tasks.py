@@ -1,11 +1,9 @@
-# Entry point for Celery
 from celery import Celery
-from crawler import crawl, add_results_to_queue
-from parserList import get_parser
-from dotenv import load_dotenv
+from parsers import defaults
+from crawler import crawl
 import os
 import logging
-logging.basicConfig(level=logging.DEBUG)
+from dotenv import load_dotenv
 load_dotenv()
 
 queue_name = 'celery'
@@ -16,17 +14,17 @@ app_client = app.connection().channel().client
 
 logging.info("Celery connected.")
  
-@app.task
-async def queue_url(url, maximum_items):
+@app.task()
+async def queue_url(url):
+    # TO-DO: Error handling
     logging.info("Queue URL starting.")
-    # Celery's queue length
     queued_count = app_client.llen(queue_name)
 
-    # get the parser, either custom or the default one
-    parser = get_parser(url)
+    logging.info(f"Celery's queue count: {queued_count}")
+
+    parser = defaults
     logging.info(f"Parser: {parser.get_html}.")
-    result = await crawl(url, queued_count, maximum_items,
-                   parser.get_html, parser.extract_content)
+    result = await crawl(url, parser.get_html, parser.extract_content)
 
     logging.info(f"Result: {result}")
 

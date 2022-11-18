@@ -13,11 +13,8 @@ pip3 install -r requirements.txt
 Run:
 
 ```bash
-docker compose build
+uvicorn main:app --reload
 ```
 
-```bash
-docker compose up
-```
 
 Visit: [http://localhost:8010/](http://localhost:8010/)
