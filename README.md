@@ -25,4 +25,4 @@ uvicorn main:app --reload
 ```
 
 
-Visit: [http://localhost:8010/](http://localhost:8000/)
+Visit: [http://localhost:8000/](http://localhost:8000/)
