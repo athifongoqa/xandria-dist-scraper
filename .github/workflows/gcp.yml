@@ -48,7 +48,7 @@ jobs:
         with:
           service: xandria-scraper
           image: europe-west3-docker.pkg.dev/xandria-web/xandria-scraper/xandria-scraper:latest
-          region: europe-west2
+          region: europe-west3
           flags: --no-allow-unauthenticated --vpc-connector=vpc
           credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}
 
