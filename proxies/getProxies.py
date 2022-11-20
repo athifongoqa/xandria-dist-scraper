@@ -19,13 +19,8 @@ def getProxies():
 def extract(proxy):
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0'}
     try:
-        r = requests.get('https://httpbin.org/ip', headers=headers, proxies={'http' : proxy,'https': proxy}, timeout=1)
-        received = r.json()
-        ip = r.json()['origin']
-        port = proxy.split(':')[1]
-        received['server'] = received.pop('origin')
-        received['server'] = ip + ':' + port
-        print(received)
+        requests.get('https://httpbin.org/ip', headers=headers, proxies={'http' : proxy,'https': proxy}, timeout=1)
+        print(proxy)
         add_to_valid_proxies(proxy)
         return
     except requests.ConnectionError as err:

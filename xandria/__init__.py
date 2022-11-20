@@ -11,8 +11,9 @@ import validators
 import os
 os.system("playwright install")
 
+logging.basicConfig(level=logging.DEBUG)
+
 def create_app() -> FastAPI:
-    logging.basicConfig(level=logging.DEBUG)
 
     logging.info('App created.')
 

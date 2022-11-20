@@ -72,16 +72,16 @@ def add_to_list(list, value):
 
 # Proxies
 def add_to_valid_proxies(ip):
-    # if connection.execute_command('LPOS', proxy_key, ip) is None:
-    #     # add URL to the end of the list
-    #     connection.rpush(to_visit_key, ip)
-    #     return
     connection.rpush(proxy_key, ip)
 
 def clear_proxies():
-    connection.delete(proxy_key)
+    current = connection.lrange(proxy_key, 0, -1)
+    if len(current) != 0:
+        connection.delete(proxy_key)
+    else: 
+        pass
     
 def get_valid_proxies_list():
     valid_proxies = connection.lrange(proxy_key, 0, -1)
-    print(valid_proxies)
+    print(len(valid_proxies))
     return valid_proxies
