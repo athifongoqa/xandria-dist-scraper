@@ -4,7 +4,6 @@ import logging
 from dotenv import load_dotenv
 load_dotenv()
 
-# connection = Redis(db=1)
 connection = Redis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'),
                 password=os.getenv('REDIS_PASSWORD'), db=os.getenv('REDIS_DB'), decode_responses=True)
 
