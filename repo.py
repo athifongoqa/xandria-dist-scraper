@@ -18,9 +18,7 @@ proxy_key = 'proxies:valid'
 def add_to_visit(value):
     # LPOS command is not available in Redis library
     # TO-DO: Error handling
-    if connection.execute_command('LPOS', to_visit_key, value) is None:
-        # add URL to the end of the list
-        connection.rpush(to_visit_key, value)
+    connection.rpush(to_visit_key, value)
 
 def pop_to_visit_blocking(timeout=0):
     logging.info('Pop to visit blocking.')
