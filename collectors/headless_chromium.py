@@ -1,9 +1,9 @@
 from playwright.async_api import async_playwright
 from proxies.proxies import random_proxies 
-from retry import retry
+# from retry import retry
 import logging
 
-@retry()
+# @retry()
 async def get_html(url, headers=None):
     # TO-DO: Error handling
     logging.info('Headless Chromium running.')

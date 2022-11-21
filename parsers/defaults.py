@@ -6,7 +6,7 @@ import logging
 import json
 import re
 import requests
-from retry import retry
+# from retry import retry
  
 def extract_content(url, soup):
 	# TO-DO: Error handling
@@ -46,7 +46,7 @@ def allow_url_filter(url):
 	robotstxt(url)
 	safe_chars(url)
 	
-@retry()
+# @retry()
 async def get_html(url):
 	try:
 		# proxies = await random_proxies()
