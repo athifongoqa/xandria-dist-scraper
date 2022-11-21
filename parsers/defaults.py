@@ -6,6 +6,7 @@ import logging
 import json
 import re
 import requests
+from retry import retry
  
 def extract_content(url, soup):
 	# TO-DO: Error handling
@@ -45,12 +46,16 @@ def allow_url_filter(url):
 	robotstxt(url)
 	safe_chars(url)
 	
-
+@retry()
 async def get_html(url):
-	proxies = await random_proxies()
-	logging.info(await random_proxies())
-	# TO-DO: Error handling
-	return await headless_chromium.get_html(url, headers=random_headers(), proxies=proxies)
+	try:
+		# proxies = await random_proxies()
+		# logging.info(await random_proxies())
+		# TO-DO: Error handling
+		return await headless_chromium.get_html(url, headers=random_headers())
+	except Exception as error:
+		print(error)
+		raise
 
 def safe_chars(url):
     pattern = re.compile(r"[A-Za-z0-9]+-\._~:/\?#.*@!\$&'.*\*\+.*=", re.IGNORECASE)
