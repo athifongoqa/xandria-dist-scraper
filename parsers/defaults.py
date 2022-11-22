@@ -5,9 +5,22 @@ from proxies.proxies import random_proxies
 import logging
 import json
 import re
+import extruct
 import requests
-# from retry import retry
- 
+import yake
+
+# def extract_metadata(url):
+
+#     # r = requests.get(url)
+#     # base_url = get_base_url(r.text, r.url)
+#     metadata = extruct.extract(r.text, 
+#                                base_url=base_url,
+#                                uniform=True,
+#                                syntaxes=['json-ld',
+#                                          'microdata',
+#                                          'opengraph'])
+#     return metadata
+
 def extract_content(url, soup):
 	# TO-DO: Error handling
 	logging.info('Extraction begun.')
@@ -22,13 +35,35 @@ def extract_content(url, soup):
 	except:
 		headline = 'Not found.'
 
-	description = data[0]['headline']
+	try: 
+		description = data[0]['headline']
+		tags = []
+		kw_extractor = yake.KeywordExtractor()
+		keywords = kw_extractor.extract_keywords(description)
 
-	url = data[0]['url']
+		for kw in keywords:
+			lst = list(kw)
+			tags.append(lst[0])
+	except:
+		description = 'Not found.'
+		tags = ['Null']
 
-	imageURL = data[0]['image']
+	try: 
+		url = data[0]['url']
+	except:
+		url = 'Not found.'
 
-	author = data[0]['author']
+	try: 
+		imageURL = data[0]['image']
+	except:
+		imageURL = 'Not found.'
+
+	try: 
+		author = data[0]['author']
+	except:
+		author = 'Not found.'
+
+	print(tags)
 
 	resource = {
 		'headline': headline,
@@ -37,7 +72,7 @@ def extract_content(url, soup):
 		'imageURL': imageURL,
 		'rootSite': re.search("//(.+?)/", url).group(1) or 'NULL',
 		'author': author['name'],
-		'tags': ['football']
+		'tags': tags
 	}
 	
 	logging.info(f'Resource returned: {resource}')
