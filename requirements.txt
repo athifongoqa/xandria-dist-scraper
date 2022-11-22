@@ -50,7 +50,6 @@ pytz==2022.5
 PyYAML==6.0
 redis==4.3.4
 requests==2.28.1
-retry==0.9.2
 rsa==4.9
 schedule==1.1.0
 six==1.16.0

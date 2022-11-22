@@ -1,10 +1,10 @@
-from redis import Redis
+from redis import StrictRedis
 import os
 import logging
 from dotenv import load_dotenv
 load_dotenv()
 
-connection = Redis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'),
+connection = StrictRedis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'),
                 password=os.getenv('REDIS_PASSWORD'), db=os.getenv('REDIS_DB'), decode_responses=True)
 
 to_visit_key = 'crawling:to_visit'
