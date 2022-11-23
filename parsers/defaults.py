@@ -5,27 +5,12 @@ from proxies.proxies import random_proxies
 import logging
 import json
 import re
-import extruct
 import requests
 import yake
-
-# def extract_metadata(url):
-
-#     # r = requests.get(url)
-#     # base_url = get_base_url(r.text, r.url)
-#     metadata = extruct.extract(r.text, 
-#                                base_url=base_url,
-#                                uniform=True,
-#                                syntaxes=['json-ld',
-#                                          'microdata',
-#                                          'opengraph'])
-#     return metadata
 
 def extract_content(url, soup):
 	# TO-DO: Error handling
 	logging.info('Extraction begun.')
-
-	# desc = soup.find("meta", attrs={'property': 'description'})
 	
 	data = [json.loads(x.string) for x in soup.find_all("script", type="application/ld+json")]
 	print(f'Data: {data[0]}')
@@ -37,21 +22,33 @@ def extract_content(url, soup):
 
 	try: 
 		description = data[0]['headline']
-		tags = []
+		cleaned = []
 		kw_extractor = yake.KeywordExtractor()
 		keywords = kw_extractor.extract_keywords(description)
 
 		for kw in keywords:
-			lst = list(kw)
-			tags.append(lst[0])
+			item = list(kw)
+
+			if ' ' not in item[0]: 
+				cleaned.append(item[0])
+
+		tagSet = set(cleaned)	
+		tags = list(tagSet)
 	except:
 		description = 'Not found.'
 		tags = ['Null']
 
 	try: 
 		url = data[0]['url']
+		rootSite = re.search("//(.+?)/", url).group(1)
+		if '.' in rootSite:
+			tagRootSite = rootSite.split('.')
+			tags.append(tagRootSite[1])
+		else:
+			tags.append(rootSite)
 	except:
 		url = 'Not found.'
+		rootSite = 'Not found.'
 
 	try: 
 		imageURL = data[0]['image']
@@ -59,24 +56,21 @@ def extract_content(url, soup):
 		imageURL = 'Not found.'
 
 	try: 
-		author = data[0]['author']
+		author = data[0]['author']['name']
 	except:
 		author = 'Not found.'
-
-	print(tags)
 
 	resource = {
 		'headline': headline,
 		'description': description,
 		'url': url,
 		'imageURL': imageURL,
-		'rootSite': re.search("//(.+?)/", url).group(1) or 'NULL',
-		'author': author['name'],
+		'rootSite': rootSite,
+		'author': author,
 		'tags': tags
 	}
 	
 	logging.info(f'Resource returned: {resource}')
-
 
 	return resource
  
