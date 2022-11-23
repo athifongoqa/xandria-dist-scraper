@@ -7,6 +7,7 @@ import json
 import re
 import requests
 import yake
+import tldextract
 
 def extract_content(url, soup):
 	# TO-DO: Error handling
@@ -40,12 +41,8 @@ def extract_content(url, soup):
 
 	try: 
 		url = data[0]['url']
-		rootSite = re.search("//(.+?)/", url).group(1)
-		if '.' in rootSite:
-			tagRootSite = rootSite.split('.')
-			tags.append(tagRootSite[1])
-		else:
-			tags.append(rootSite)
+		rootSite = tldextract.extract(url).domain
+		tags.append(rootSite)
 	except:
 		url = 'Not found.'
 		rootSite = 'Not found.'
