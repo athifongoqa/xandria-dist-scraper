@@ -21,7 +21,7 @@ async def get_html(url, headers=None):
             )
             logging.info(f'Browser used: {browser} - for url:{url}')
 
-            ctx = await browser.new_context(accept_downloads=False, java_script_enabled=False)
+            ctx = await browser.new_context(accept_downloads=False)
 
             page = await ctx.new_page()
             logging.info(f'Empty New Page: {page}')
