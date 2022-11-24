@@ -182,7 +182,7 @@ KEY: <mark class="highlight-gray_background">**WORK IN PROGRESS**
 - Task management queue
     - To protect against overwhelming the server’s/container’s resources, Celery is used to handle scraping jobs separately.
 - Headless browsers
-    - <mark class="highlight-gray_background">**Sandboxed launches to prevent SSRF are still needed.**
+    - Sandboxed launches to prevent SSRF. 
 - Input URL validation
     - Validating whether the URL is valid/exists and a public IP address
     - Robots.txt: checking whether the User-Agent is set to * (all) & the if the disallow path != URL given (or is root)
