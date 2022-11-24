@@ -141,6 +141,7 @@ KEY: <mark class="highlight-gray_background">**WORK IN PROGRESS**
     <ul id="6a8face6-1135-4777-a0fe-d320aa65f0f0" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-gray_background"><strong><span style="border-bottom:0.05em solid">TODO: prevent scraper from scraping URLs from blocklists</span></strong></mark></li></ul>
 - VPC:
     - Only route requests to private IPs (such as the scraper) through the VPC connector
+    - Ingress is set to allow `all traffic`
 - Express helmet middleware (setting security headers)
 - Authentication → If JWT doesn’t hold the ID of valid User context creation for GraphQL will fail
     - separate Auth REST Endpoint to avoid GraphQL insecurities
@@ -177,12 +178,15 @@ KEY: <mark class="highlight-gray_background">**WORK IN PROGRESS**
 - HTTPS Redirect
 - VPC:
     - The scraper (Cloud Run serverless instance) should only be accessible for the API (also a Cloud Run serverless instance). They are both parts of the same VPC network (each connected to the VPC via a Serverless VPC Access connector) with the scraper’s ingress also set to `internal only` to ensure its traffic is solely to and from the API.
-- Rotating proxies
-    - Avoiding blacklisting from websites by routing through short-lived HTTP(S) proxies at runtime. The proxies are stored and updated in Redis every five minutes by means of a Cloud Function.
 - Task management queue
     - To protect against overwhelming the server’s/container’s resources, Celery is used to handle scraping jobs separately.
 - Headless browsers
-    - Sandboxed launches to prevent SSRF. 
+    - Sandboxed Chromium launches to prevent SSRF. **Firefox, still to do.**
+    - Disbaled background networking. 
+    - Accept no dwownloads.
+    - Javascript disabled.
+- Rotating proxies
+    - Avoiding blacklisting from websites by routing through short-lived HTTP(S) proxies at runtime. The proxies are stored and updated in Redis chronologically by means of a Cloud Function.
 - Input URL validation
     - Validating whether the URL is valid/exists and a public IP address
     - Robots.txt: checking whether the User-Agent is set to * (all) & the if the disallow path != URL given (or is root)

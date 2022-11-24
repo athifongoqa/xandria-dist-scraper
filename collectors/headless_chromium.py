@@ -1,9 +1,7 @@
 from playwright.async_api import async_playwright
 from proxies.proxies import random_proxies 
-# from retry import retry
 import logging
 
-# @retry()
 async def get_html(url, headers=None):
     # TO-DO: Error handling
     logging.info('Headless Chromium running.')
@@ -17,12 +15,15 @@ async def get_html(url, headers=None):
 
         try: 
             browser_type = p.chromium
-            browser = await browser_type.launch( 
-                chromium_sandbox=True
+            browser = await browser_type.launch(
+                chromium_sandbox=True,
+                ignore_default_args=["--disable-background-networking"]
             )
             logging.info(f'Browser used: {browser} - for url:{url}')
 
-            page = await browser.new_page()
+            ctx = await browser.new_context(accept_downloads=False, java_script_enabled=False)
+
+            page = await ctx.new_page()
             logging.info(f'Empty New Page: {page}')
 
             await page.set_extra_http_headers(headers)
