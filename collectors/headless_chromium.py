@@ -17,7 +17,9 @@ async def get_html(url, headers=None):
 
         try: 
             browser_type = p.chromium
-            browser = await browser_type.launch()
+            browser = await browser_type.launch( 
+                chromium_sandbox=True
+            )
             logging.info(f'Browser used: {browser} - for url:{url}')
 
             page = await browser.new_page()
