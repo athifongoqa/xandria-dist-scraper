@@ -17,7 +17,6 @@ async def get_html(url, headers=None):
             browser_type = p.chromium
             browser = await browser_type.launch(
                 chromium_sandbox=True,
-                ignore_default_args=["--disable-background-networking"]
             )
             logging.info(f'Browser used: {browser} - for url:{url}')
 
