@@ -51,7 +51,7 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v0
         with:
           service: xandria-scraper
-          image: europe-west3-docker.pkg.dev/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
+          image: ${{ secrets.ARTIFACT_IMAGE }}
           region: europe-west3
           flags: --allow-unauthenticated
           credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}
