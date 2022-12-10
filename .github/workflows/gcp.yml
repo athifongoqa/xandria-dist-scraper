@@ -9,9 +9,9 @@ jobs:
     name: Build and Push Docker Image to GCP Artifact Registry
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: xandria-scraper
-      PROJECT_ID: xandria-web
-      REPO_ID: xandria-scraper
+      IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      REPO_ID: ${{ secrets.REPO_ID }}
 
     steps:
       - name: Checkout
@@ -37,6 +37,10 @@ jobs:
     needs: build-push-gcr
     name: Deploy Image with GCP Cloud Run
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      REPO_ID: ${{ secrets.REPO_ID }}
 
     steps:
       - name: Checkout
@@ -47,7 +51,7 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v0
         with:
           service: xandria-scraper
-          image: europe-west3-docker.pkg.dev/xandria-web/xandria-scraper/xandria-scraper:latest
+          image: europe-west3-docker.pkg.dev/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
           region: europe-west3
           flags: --allow-unauthenticated
           credentials: ${{ secrets.SERVICE_ACCOUNT_KEY }}
